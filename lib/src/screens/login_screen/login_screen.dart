@@ -77,7 +77,7 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                   ),
                 ),
               ),
-              
+
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(

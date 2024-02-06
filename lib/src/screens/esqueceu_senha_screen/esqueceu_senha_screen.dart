@@ -25,6 +25,8 @@ class _TelaEsqueceuSenhaWidgetState extends State<TelaEsqueceuSenhaWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
         if (_emailFocusNode.canRequestFocus) {
@@ -37,44 +39,54 @@ class _TelaEsqueceuSenhaWidgetState extends State<TelaEsqueceuSenhaWidget> {
           top: true,
           child: Stack(
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(75),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/images/icon-rp-projeto.png',
-                        width: 220,
-                        height: 93,
-                        fit: BoxFit.contain,
-                        alignment: Alignment(0, 0),
-                      ),
-                      const SizedBox(height: 1),
-                      const Text(
-                        'PointJob',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          color: Colors.white,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
+              Stack(
+                children: [
+                  Positioned(
+                    top: screenHeight * 0.0,
+                    left: 0,
+                    right: 0,
+                    child: Center( // Centraliza verticalmente em relação ao Stack
+                      child: Padding(
+                        padding: const EdgeInsets.all(75),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image.asset(
+                              'assets/images/icon-rp-projeto.png',
+                              width: 220,
+                              height: 93,
+                              fit: BoxFit.contain,
+                            ),
+                            const SizedBox(height: 1), // Espaço entre a imagem e o texto
+                            const Text(
+                              'PointJob',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                color: Colors.white,
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
+              Positioned(
+                bottom: 0,
+                left: 0,
                 child: Container(
-                  width: 441,
-                  height: 500,
+                  width: screenWidth,
+                  height: screenHeight * 0.65,
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(25),
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
                     ),
                   ),
                   child: SingleChildScrollView(
@@ -149,8 +161,7 @@ class _TelaEsqueceuSenhaWidgetState extends State<TelaEsqueceuSenhaWidget> {
                     ),
                   ),
                 ),
-              ),
-              
+              ), 
             ],
           ),
         ),
@@ -176,3 +187,6 @@ class _TelaEsqueceuSenhaWidgetState extends State<TelaEsqueceuSenhaWidget> {
     );
   }
 }
+
+
+ 

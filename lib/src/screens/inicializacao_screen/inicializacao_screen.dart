@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart'; // Adicionando a importação necessária
+import 'package:flutter/services.dart'; 
 
 class TelaInicializacaoWidget extends StatefulWidget {
   const TelaInicializacaoWidget({Key? key}) : super(key: key);
@@ -53,11 +53,23 @@ class _TelaInicializacaoWidgetState extends State<TelaInicializacaoWidget> {
         backgroundColor: const Color(0xFF236742),
         body: SafeArea(
           top: true,
-          child: Stack(
-            children: [
-              const Align(
-                alignment: AlignmentDirectional(0, 0.04),
-                child: Text(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(
+                    'assets/images/icon-rp-projeto.png',
+                    width: 153,
+                    height: 141,
+                    fit: BoxFit.contain,
+                    alignment: Alignment.center,
+                  ),
+                ),
+                const SizedBox(height: 30),
+                const Text(
                   'PointJob',
                   style: TextStyle(
                     fontFamily: 'Roboto',
@@ -66,21 +78,8 @@ class _TelaInicializacaoWidgetState extends State<TelaInicializacaoWidget> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-              Align(
-                alignment: const AlignmentDirectional(0, -0.27),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.asset(
-                    'assets/images/icon-rp-projeto.png',
-                    width: 153,
-                    height: 141,
-                    fit: BoxFit.contain,
-                    alignment: const Alignment(0, 0),
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -18,7 +18,7 @@ class _TelaAtividadesWidgetState extends State<TelaAtividadesWidget> {
 
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFF236742),
+      backgroundColor: const Color(0xFF236742),
       body: SafeArea(
         top: true,
         child: Stack(
@@ -27,9 +27,9 @@ class _TelaAtividadesWidgetState extends State<TelaAtividadesWidget> {
               top: screenHeight * 0.05,
               left: 0,
               right: 0,
-              child: Container(
+              child: const SizedBox(
                 width: double.infinity,
-                child: const Text(
+                child: Text(
                   'Atividades',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -56,6 +56,55 @@ class _TelaAtividadesWidgetState extends State<TelaAtividadesWidget> {
                 ),
               ),
             ),
+
+          // BOTAO QUE MOSTRA AS ATIVIDADES DO TRABALHADOR ==================================================
+           Positioned(
+              bottom: screenHeight * 0.65,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: SizedBox(
+                  width: screenWidth * 0.75,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('TelaInfoConstrucao');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.black,
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        side: const BorderSide(color: Color(0xFF236742), width: 2),
+                      ),
+                      padding: const EdgeInsets.fromLTRB(36, 36, 36, 36),
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.arrow_forward_ios, size: 20, color: Color(0xFF236742)),
+                        SizedBox(width: 8),
+                        Flexible(
+                          child: Text(
+                            'CONST001 - Construção 1',
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            overflow: TextOverflow.ellipsis, // Adiciona reticências se o texto for muito longo
+                            maxLines: 1, // Define o número máximo de linhas para 1
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+          //FIM DO BOTAO ====================================================================================
+
+            // Menu inferior
             Positioned(
               bottom: 0,
               left: 0,

@@ -35,6 +35,9 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return GestureDetector(
       onTap: () {
         if (_textFieldFocusNode1.canRequestFocus ||
@@ -44,50 +47,58 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
       },
       child: Scaffold(
         backgroundColor: const Color(0xFF236742),
-        
         body: SafeArea(
           top: true,
-        
           child: Stack(
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(75),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/images/icon-rp-projeto.png',
-                        width: 220,
-                        height: 93,
-                        fit: BoxFit.contain,
-                      ),
-                      const SizedBox(height: 1), // Espaço entre a imagem e o texto
-                      const Text(
-                        'PointJob',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          color: Colors.white,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
+              Stack(
+                children: [
+                  Positioned(
+                    top: screenHeight * 0.0,
+                    left: 0,
+                    right: 0,
+                    child: Center( // Centraliza verticalmente em relação ao Stack
+                      child: Padding(
+                        padding: const EdgeInsets.all(75),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image.asset(
+                              'assets/images/icon-rp-projeto.png',
+                              width: 220,
+                              height: 93,
+                              fit: BoxFit.contain,
+                            ),
+                            const SizedBox(height: 1), // Espaço entre a imagem e o texto
+                            const Text(
+                              'PointJob',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'Roboto',
+                                color: Colors.white,
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-
-              Align(
-                alignment: Alignment.bottomCenter,
+              Positioned(
+                bottom: 0,
+                left: 0,
                 child: Container(
-                  width: 441,
-                  height: 500,
+                  width: screenWidth,
+                  height: screenHeight * 0.65,
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(25),
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
                     ),
                   ),
                   child: SingleChildScrollView(
@@ -108,7 +119,7 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                           children: [
                             const SizedBox(height: 20),
                             const Align(
-                              alignment: AlignmentDirectional(-0.88, -0.5),
+                              alignment: AlignmentDirectional(-0.70, -0.5),
                               child: Text(
                                 'Email:',
                                 style: TextStyle(
@@ -124,7 +135,7 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                             ),
                             const SizedBox(height: 20),
                             const Align(
-                              alignment: AlignmentDirectional(-0.88, -0.5),
+                              alignment: AlignmentDirectional(-0.70, -0.5),
                               child: Text(
                                 'Senha:',
                                 style: TextStyle(
@@ -150,14 +161,15 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                                       ? Icons.visibility_outlined
                                       : Icons.visibility_off_outlined,
                                   size: 22,
+                                  color: const Color(0xFF236742),
                                 ),
                               ),
                             ),
                           ],
                         ),
-
+                        const SizedBox(height: 10),
                         Align(
-                           alignment: const AlignmentDirectional(-0.83, 0.22),
+                          alignment: const AlignmentDirectional(-0.70, 0.22),
                           child: InkWell(
                             onTap: () {
                               Navigator.pushNamed(context, 'TelaEsqueceuSenha');
@@ -182,7 +194,7 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                             foregroundColor: Colors.white, backgroundColor: const Color(0xFF236742),
                             fixedSize: const Size(250, 45),
                             shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8),
                             ),
                           ),
                           child: const Text(
@@ -198,7 +210,7 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                     ),
                   ),
                 ),
-              ),
+              ), 
             ],
           ),
         ),
@@ -215,7 +227,8 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
     Widget? suffixIcon,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 50),
+      
       child: TextFormField(
         controller: controller,
         focusNode: focusNode,
@@ -225,6 +238,7 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
           labelStyle: const TextStyle(
             fontFamily: 'Roboto',
             fontSize: 15,
+            
           ),
           errorStyle: const TextStyle(
             fontFamily: 'Roboto',

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rp_projeto/routes.dart';
-import 'package:rp_projeto/src/screens/atividades_screen/atividades_screen.dart';
 import 'package:rp_projeto/src/screens/inicializacao_screen/inicializacao_screen.dart';
 
 
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: Routes.getRoutes(),
-      home: TelaAtividadesWidget(),
+      home: TelaInicializacaoWidget(),
     );
   }
 }

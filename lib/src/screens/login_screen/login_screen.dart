@@ -199,8 +199,6 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                   ),
                 ),
               ),
-              
-
             ],
           ),
         ),

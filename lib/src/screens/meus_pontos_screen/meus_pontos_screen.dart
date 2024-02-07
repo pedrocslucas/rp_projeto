@@ -23,6 +23,8 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
         top: true,
         child: Stack(
           children: [
+
+            //TITULO DA PAGINA =========================================================================
             Positioned(
               top: screenHeight * 0.05,
               left: 0,
@@ -41,6 +43,8 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
                 ),
               ),
             ),
+            
+            //FUNDO BRANCO =============================================================================
             Positioned(
               bottom: 0,
               left: 0,
@@ -57,8 +61,7 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
               ),
             ),
 
-//MOSTRANDO OS PONTOS DOS TRABALHADORES
-//============================================================================================================
+            //MOSTRANDO OS PONTOS DOS TRABALHADORES =====================================================
             Positioned(
               bottom: screenHeight * 0.55,
               left: 0,
@@ -76,6 +79,8 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
+
+                        //NOME DA CONTRUTORA =======================================================
                         const Align(
                           alignment: AlignmentDirectional(-0.8, -1),
                           child: Text(
@@ -87,6 +92,8 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
                             ),
                           ),
                         ),
+
+                        //LABEL DATA ========================================================================
                         const SizedBox(height: 15),
                          Row(
                           mainAxisSize: MainAxisSize.max,
@@ -102,6 +109,8 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
                                 ),
                               ),
                             ),
+
+                            //CAMPO COM O VALOR DA DATA ==================================================
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -128,6 +137,8 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
                             ),
                           ],
                         ),
+
+                        //LABEL STATUS =============================================================
                         const SizedBox(height: 15),
                         Row(
                           mainAxisSize: MainAxisSize.max,
@@ -143,6 +154,8 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
                                 ),
                               ),
                             ),
+
+                          //CAMPO COM O VALOR DO STATUS ==================================================
                            Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -176,8 +189,7 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
               ),
             ),
 
-//============================================================================================================
-
+            // POSIÇÃO DO MENU ===========================================================================
             Positioned(
               bottom: 0,
               left: 0,
@@ -208,6 +220,7 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
     );
   }
 
+//CRIACAO DO MENU ==================================================================================
   Widget buildMenuButton(String route, IconData icon, String label, int index) {
     return InkWell(
       onTap: () {
@@ -220,6 +233,7 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          const SizedBox(height: 10), 
           Icon(
             icon,
             color: _currentPageIndex == index ? Colors.white : const Color(0x7FFFFFFF),

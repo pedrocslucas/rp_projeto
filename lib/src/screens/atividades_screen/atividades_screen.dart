@@ -23,6 +23,8 @@ class _TelaAtividadesWidgetState extends State<TelaAtividadesWidget> {
         top: true,
         child: Stack(
           children: [
+
+            // TITULO DA PAGINA =========================================================================
             Positioned(
               top: screenHeight * 0.05,
               left: 0,
@@ -41,6 +43,8 @@ class _TelaAtividadesWidgetState extends State<TelaAtividadesWidget> {
                 ),
               ),
             ),
+
+            //FUNDO BRANCO ================================================================================
             Positioned(
               bottom: 0,
               left: 0,
@@ -102,9 +106,8 @@ class _TelaAtividadesWidgetState extends State<TelaAtividadesWidget> {
               ),
             ),
 
-          //FIM DO BOTAO ====================================================================================
 
-            // Menu inferior
+            // POSICAO DO MENU ==============================================================================
             Positioned(
               bottom: 0,
               left: 0,
@@ -135,6 +138,7 @@ class _TelaAtividadesWidgetState extends State<TelaAtividadesWidget> {
     );
   }
 
+//CONSTRUÇÃO DO MENU =========================================================================================
   Widget buildMenuButton(String route, IconData icon, String label, int index) {
     return InkWell(
       onTap: () {
@@ -144,9 +148,11 @@ class _TelaAtividadesWidgetState extends State<TelaAtividadesWidget> {
         });
       },
       child: Column(
+        
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          const SizedBox(height: 10), 
           Icon(
             icon,
             color: _currentPageIndex == index ? Colors.white : const Color(0x7FFFFFFF),
@@ -166,4 +172,3 @@ class _TelaAtividadesWidgetState extends State<TelaAtividadesWidget> {
     );
   }
 }
-

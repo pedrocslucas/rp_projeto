@@ -53,6 +53,8 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
             children: [
               Stack(
                 children: [
+
+                  // NOME E LOGO DO PROJETO =============================================================
                   Positioned(
                     top: screenHeight * 0.0,
                     left: 0,
@@ -88,6 +90,8 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                   ),
                 ],
               ),
+
+              //FUNDO BRANCO ===================================================================
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -101,6 +105,8 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                       topRight: Radius.circular(30),
                     ),
                   ),
+
+                  //NOME ENTRAR =======================================================================
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -114,6 +120,8 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+
+                        //CAMPO EMAIL ==================================================================
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -133,6 +141,8 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                               controller: _textController1,
                               focusNode: _textFieldFocusNode1,
                             ),
+
+                          //CAMPO SENHA ==================================================================
                             const SizedBox(height: 20),
                             const Align(
                               alignment: AlignmentDirectional(-0.70, -0.5),
@@ -167,6 +177,8 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                             ),
                           ],
                         ),
+
+                        //ESQUECI MINH A SENHA ==========================================================
                         const SizedBox(height: 10),
                         Align(
                           alignment: const AlignmentDirectional(-0.70, 0.22),
@@ -185,6 +197,8 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                             ),
                           ),
                         ),
+
+                        //BOTAO ENTRAR ===================================================================
                         const SizedBox(height: 47,),
                         ElevatedButton(
                           onPressed: () {
@@ -217,6 +231,8 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
       ),
     );
   }
+
+  //CRIACAO DOS TEXTFIELD CAMPOS PARA O USARIO INSERIR O SEUS DADOS ==========================================
 
   Widget _buildTextField({
     required String label,

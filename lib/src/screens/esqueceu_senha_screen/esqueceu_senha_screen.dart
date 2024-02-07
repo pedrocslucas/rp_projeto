@@ -41,11 +41,13 @@ class _TelaEsqueceuSenhaWidgetState extends State<TelaEsqueceuSenhaWidget> {
             children: [
               Stack(
                 children: [
+
+                  // LOGO E NOME POINTJOB ==============================================================
                   Positioned(
                     top: screenHeight * 0.0,
                     left: 0,
                     right: 0,
-                    child: Center( // Centraliza verticalmente em relação ao Stack
+                    child: Center( 
                       child: Padding(
                         padding: const EdgeInsets.all(75),
                         child: Column(
@@ -58,7 +60,7 @@ class _TelaEsqueceuSenhaWidgetState extends State<TelaEsqueceuSenhaWidget> {
                               height: 93,
                               fit: BoxFit.contain,
                             ),
-                            const SizedBox(height: 1), // Espaço entre a imagem e o texto
+                            const SizedBox(height: 1), 
                             const Text(
                               'PointJob',
                               textAlign: TextAlign.center,
@@ -76,6 +78,8 @@ class _TelaEsqueceuSenhaWidgetState extends State<TelaEsqueceuSenhaWidget> {
                   ),
                 ],
               ),
+
+              //FUNDO BRANCO ============================================================================
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -89,10 +93,13 @@ class _TelaEsqueceuSenhaWidgetState extends State<TelaEsqueceuSenhaWidget> {
                       topRight: Radius.circular(30),
                     ),
                   ),
+
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+
+                        // TITULO ESQUECEU SENHA ===================================
                         const SizedBox(height: 70),
                         const Text(
                           'Esqueceu Senha',
@@ -102,6 +109,8 @@ class _TelaEsqueceuSenhaWidgetState extends State<TelaEsqueceuSenhaWidget> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+
+                        // TEXTO ESQUECEU SENHA ====================================================
                         const SizedBox(height: 23),
                         const Text(
                           'Se você esqueceu sua senha\n'
@@ -115,6 +124,8 @@ class _TelaEsqueceuSenhaWidgetState extends State<TelaEsqueceuSenhaWidget> {
                             fontWeight: FontWeight.normal,
                           ),
                         ),
+
+                        // BOTAO ENVIAR ===================================================================
                         const SizedBox(height: 50),
                         ElevatedButton(
                           onPressed: () {
@@ -138,6 +149,8 @@ class _TelaEsqueceuSenhaWidgetState extends State<TelaEsqueceuSenhaWidget> {
                             ),
                           ),
                         ),
+
+                        //VOLTAR PARA LOGIN
                         const SizedBox(height: 20),
                         InkWell(
                           splashColor: Colors.transparent,
@@ -169,6 +182,8 @@ class _TelaEsqueceuSenhaWidgetState extends State<TelaEsqueceuSenhaWidget> {
     );
   }
 
+
+//MENSAGEM PARA O ENVIO =====================================================================================
   void _showDialog(BuildContext context) {
     showDialog(
       context: context,

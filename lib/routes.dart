@@ -1,11 +1,15 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:rp_projeto/src/screens/atividades_screen/atividades_screen.dart';
 import 'package:rp_projeto/src/screens/esqueceu_senha_screen/esqueceu_senha_screen.dart';
+import 'package:rp_projeto/src/screens/info_obra_screen/info_obra_screen.dart';
 import 'package:rp_projeto/src/screens/login_screen/login_screen.dart';
 import 'package:rp_projeto/src/screens/meus_pontos_screen/meus_pontos_screen.dart';
 import 'package:rp_projeto/src/screens/notificacao_expandida_screen/notificacao_expandida_screen.dart';
 import 'package:rp_projeto/src/screens/notificacao_screen/notificacao_screen.dart';
 import 'package:rp_projeto/src/screens/perfil_screen/perfil_screen.dart';
+import 'package:rp_projeto/src/screens/reconhecimento_facial_screen/reconhecimento_facial_screen.dart';
 import 'package:rp_projeto/src/screens/suporte_screen/suporte_screen.dart';
 
 class Routes {
@@ -17,6 +21,8 @@ class Routes {
   static const String telaNotificacao = 'TelaNotificacao';
   static const String telaNotificacaoExpandida = 'TelaNotificacaoExpandida';
   static const String telaSuporte= 'TelaSuporte';
+  static const String telaInfoConstrucao= 'TelaInfoConstrucao';
+  static const String telaReconhecimentoFacial= 'TelaReconhecimentoFacial';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -28,7 +34,9 @@ class Routes {
       telaNotificacao: (context) =>TelaNotificacaoWidget(),
       telaNotificacaoExpandida: (context) =>TelaNotificacaoExpandidaWidget(),
       telaSuporte: (context) => TelaSuporteWidget(),
-      // Adicione mais rotas conforme necessário
+      telaInfoConstrucao: (context) => TelaInfoConstrucaoWidget(),
+      telaReconhecimentoFacial: (context) =>TelaReconhecimentoFacialWidget(),
+
     };
   }
 }

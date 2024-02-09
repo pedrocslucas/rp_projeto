@@ -44,13 +44,15 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
               ),
             ),
 
+            
+
             //BACKGOUND BRANCO ========================================================================
             Positioned(
               bottom: 0,
               left: 0,
               child: Container(
                 width: screenWidth,
-                height: screenHeight * 0.85,
+                height: screenHeight * 0.83,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -64,7 +66,7 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
             
             // FOTO DO USUARIO=============================================================================
             Positioned(
-              top: screenHeight * 0.155,
+              top: screenHeight * 0.175,
               left: screenWidth * 0.5 - 60,
               child: Container(
                 width: 120,
@@ -82,7 +84,7 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
 
             // BORDA AO REDOR DA FOTO==================================================================
             Positioned(
-              top: screenHeight * 0.1537,
+              top: screenHeight * 0.1737,
               left: screenWidth * 0.5 - 61.5,
               child: Container(
                 width: 123,
@@ -100,7 +102,7 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
 
             // Icon Suporte =========================================================================
             Positioned(
-              top: screenHeight * 0.15,
+              top: screenHeight * 0.18,
               right: screenWidth *0.02,
               child: IconButton(
                 onPressed: () {
@@ -116,7 +118,7 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
 
             //Icon Notificação=======================================================================
             Positioned(
-              top: screenHeight * 0.15,
+              top: screenHeight * 0.18,
               left: screenWidth *0.02,
               child: IconButton(
                 onPressed: () {
@@ -302,9 +304,9 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
       },
       child: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 10), 
+          const SizedBox(width: 100), 
           Icon(
             icon,
             color: _currentPageIndex == index ? Colors.white : const Color(0x7FFFFFFF),

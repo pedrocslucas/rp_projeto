@@ -50,7 +50,7 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
               left: 0,
               child: Container(
                 width: screenWidth,
-                height: screenHeight * 0.85,
+                height: screenHeight * 0.83,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -58,136 +58,142 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
                     topRight: Radius.circular(30),
                   ),
                 ),
-              ),
-            ),
-
-            //MOSTRANDO OS PONTOS DOS TRABALHADORES =====================================================
-            Positioned(
-              bottom: screenHeight * 0.55,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: SizedBox(
-                  width: screenWidth * 0.75,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: const Color(0xFF236742), width: 3),
-                    ),
-                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-
-                        //NOME DA CONTRUTORA =======================================================
-                        const Align(
-                          alignment: AlignmentDirectional(-0.8, -1),
-                          child: Text(
-                            'ABC Construções',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      //MOSTRANDO OS PONTOS DOS TRABALHADORES =====================================================
+                      const SizedBox(height: 40,),
+                      Positioned(
+                        bottom: screenHeight * 0.55,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: SizedBox(
+                            width: screenWidth * 0.75,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(color: const Color(0xFF236742), width: 3),
+                              ),
+                              padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  //NOME DA CONTRUTORA =======================================================
+                                  const Align(
+                                    alignment: AlignmentDirectional(-0.8, -1),
+                                    child: Text(
+                                      'ABC Construções',
+                                      style: TextStyle(
+                                        fontFamily: 'Roboto',
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  //LABEL DATA ========================================================================
+                                  const SizedBox(height: 15),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      const Align(
+                                        alignment: AlignmentDirectional(-0.89, 0),
+                                        child: Text(
+                                          'Data:',
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                            fontFamily: 'Readex Pro',
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ),
+                                      //CAMPO COM O VALOR DA DATA ==================================================
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: Colors.black,
+                                                width: 1,
+                                              ),
+                                              borderRadius: BorderRadius.circular(5),
+                                            ),
+                                            child: const Padding(
+                                              padding: EdgeInsets.all(15.0),
+                                              child: Text(
+                                                '06/02/2024',
+                                                style: TextStyle(
+                                                  fontFamily: 'Readex Pro',
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  //LABEL STATUS =============================================================
+                                  const SizedBox(height: 15),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      const Align(
+                                        alignment: AlignmentDirectional(-0.89, 0),
+                                        child: Text(
+                                          'Status:',
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                            fontFamily: 'Readex Pro',
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ),
+                                      //CAMPO COM O VALOR DO STATUS ==================================================
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: Colors.black,
+                                                width: 1,
+                                              ),
+                                              borderRadius: BorderRadius.circular(5),
+                                            ),
+                                            child: const Padding(
+                                              padding: EdgeInsets.all(15.0),
+                                              child: Text(
+                                                'Confirmado',
+                                                style: TextStyle(
+                                                  fontFamily: 'Readex Pro',
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
+                      ),
 
-                        //LABEL DATA ========================================================================
-                        const SizedBox(height: 15),
-                         Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            const Align(
-                              alignment: AlignmentDirectional(-0.89, 0),
-                              child: Text(
-                                'Data:',
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontFamily: 'Readex Pro',
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ),
-
-                            //CAMPO COM O VALOR DA DATA ==================================================
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.black,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(15.0),
-                                    child: Text(
-                                      '06/02/2024',
-                                      style: TextStyle(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        //LABEL STATUS =============================================================
-                        const SizedBox(height: 15),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            const Align(
-                              alignment: AlignmentDirectional(-0.89, 0),
-                              child: Text(
-                                'Status:',
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontFamily: 'Readex Pro',
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ),
-
-                          //CAMPO COM O VALOR DO STATUS ==================================================
-                           Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.black,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(15.0),
-                                    child: Text(
-                                      'Confirmado',
-                                      style: TextStyle(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                     const SizedBox(height: 100,), //IMPORTANTE PARA VER TODOS O PONTOS BATIDOS
+                    ],
                   ),
                 ),
               ),
+              
             ),
+
+
 
             // POSIÇÃO DO MENU ===========================================================================
             Positioned(
@@ -231,9 +237,9 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
       },
       child: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 10), 
+          const SizedBox(width: 100), 
           Icon(
             icon,
             color: _currentPageIndex == index ? Colors.white : const Color(0x7FFFFFFF),

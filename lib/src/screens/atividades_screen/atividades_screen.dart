@@ -50,7 +50,7 @@ class _TelaAtividadesWidgetState extends State<TelaAtividadesWidget> {
               left: 0,
               child: Container(
                 width: screenWidth,
-                height: screenHeight * 0.85,
+                height: screenHeight * 0.83,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -150,9 +150,9 @@ class _TelaAtividadesWidgetState extends State<TelaAtividadesWidget> {
       child: Column(
         
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 10), 
+          const SizedBox(width: 100),          
           Icon(
             icon,
             color: _currentPageIndex == index ? Colors.white : const Color(0x7FFFFFFF),

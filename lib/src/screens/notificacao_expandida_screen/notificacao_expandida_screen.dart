@@ -68,7 +68,7 @@ class _TelaNotificacaoExpandidaWidgetState extends State<TelaNotificacaoExpandid
               left: 0,
               child: Container(
                 width: screenWidth,
-                height: screenHeight * 0.85,
+                height: screenHeight * 0.83,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -96,7 +96,7 @@ class _TelaNotificacaoExpandidaWidgetState extends State<TelaNotificacaoExpandid
                         const SizedBox(height: 23), 
                           const Center(
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 80), 
+                              padding: EdgeInsets.symmetric(horizontal: 25), 
                               child: Text(
                                 'Informamos que amanhã - sexta-feira (21/04), entre as 08h e 12h, será realizada uma atualização na configuração do servidor de e-mail da universidade, por este motivo, comunicamos que na data e horário supracitados, o serviço de e-mail estará temporariamente indisponível.\n\nCaso haja alguma dúvida, favor entrar em contato com o STi através da página www.sistemas.univasf.edu.br/suporte ou do telefone: 87-2101-6809.\n\nPedimos desculpas pelos possíveis transtornos e agradecemos a compreensão de todos!'
                                 ,

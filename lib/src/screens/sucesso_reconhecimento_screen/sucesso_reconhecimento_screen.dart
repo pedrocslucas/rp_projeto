@@ -16,7 +16,8 @@ class TelaReconhecimentoSucessoWidget extends StatelessWidget {
         ),
       );
     }
-
+    
+//FUNDO BRANCO ========================================================================================================
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -26,6 +27,8 @@ class TelaReconhecimentoSucessoWidget extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+
+                  //IMAGEM DO V ===================================================================================
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.asset(
@@ -36,6 +39,8 @@ class TelaReconhecimentoSucessoWidget extends StatelessWidget {
                       alignment: Alignment.center,
                     ),
                   ),
+
+                  //TEXTO "PRONTO" =================================================================================
                   const SizedBox(height: 20),
                   const Text(
                     'Pronto!',
@@ -46,6 +51,8 @@ class TelaReconhecimentoSucessoWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+
+                //TEXTO DO SUCESSO DO REC... ======================================================================
                   const SizedBox(height: 20),
                   const Text(
                     'Seu reconhecimento facial\nfoi realizado com sucesso.',
@@ -56,6 +63,7 @@ class TelaReconhecimentoSucessoWidget extends StatelessWidget {
                     ),
                   ),
 
+            //BOTAO DE COONFIRMAR ===========================================================================
                 const SizedBox(height: 150),
                Align(
                     alignment: Alignment.bottomCenter,
@@ -91,6 +99,8 @@ class TelaReconhecimentoSucessoWidget extends StatelessWidget {
                 ],
               ),
             ),
+
+            //ICONE DE X PARA FECHAR ===========================================================================
             Positioned(
               top: 0,
               right: 0,

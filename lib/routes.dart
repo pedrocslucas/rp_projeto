@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:rp_projeto/src/screens/atividades_screen/atividades_screen.dart';
 import 'package:rp_projeto/src/screens/esqueceu_senha_screen/esqueceu_senha_screen.dart';
@@ -17,20 +15,20 @@ import 'package:rp_projeto/src/screens/sucesso_reconhecimento_screen/sucesso_rec
 import 'package:rp_projeto/src/screens/suporte_screen/suporte_screen.dart';
 
 class Routes {
-  static const String telaLogin = 'TelaLogin';
-  static const String telaEsqueceuSenha = 'TelaEsqueceuSenha';
-  static const String telaAtividades = 'TelaAtividades';
-  static const String telaMeusPontos = 'TelaMeusPontos';
-  static const String telaPerfil = 'TelaPerfil';
-  static const String telaNotificacao = 'TelaNotificacao';
-  static const String telaNotificacaoExpandida = 'TelaNotificacaoExpandida';
-  static const String telaSuporte= 'TelaSuporte';
-  static const String telaInfoConstrucao= 'TelaInfoConstrucao';
-  static const String telaReconhecimentoFacial= 'TelaReconhecimentoFacial';
-  static const String telaRegistroPonto= "TelaRegistroPonto";
-  static const String telaLoadingReconhecimento= "TelaLoadingReconhecimento";
-  static const String telaReconhecimentoSucesso= "TelaReconhecimentoSucesso";
-  static const String telaReconhecimentoFalha= 'TelaReconhecimentoFalha';
+  static const String telaLogin = 'TelaLogin'; //
+  static const String telaEsqueceuSenha = 'TelaEsqueceuSenha';//
+  static const String telaAtividades = 'TelaAtividades'; //
+  static const String telaMeusPontos = 'TelaMeusPontos'; //
+  static const String telaPerfil = 'TelaPerfil'; //
+  static const String telaNotificacao = 'TelaNotificacao'; //
+  static const String telaNotificacaoExpandida = 'TelaNotificacaoExpandida'; //
+  static const String telaSuporte= 'TelaSuporte'; //
+  static const String telaInfoConstrucao= 'TelaInfoConstrucao'; //
+  static const String telaReconhecimentoFacial= 'TelaReconhecimentoFacial'; //
+  static const String telaRegistroPonto= "TelaRegistroPonto"; //
+  static const String telaLoadingReconhecimento= "TelaLoadingReconhecimento"; //
+  static const String telaReconhecimentoSucesso= "TelaReconhecimentoSucesso"; //
+  static const String telaReconhecimentoFalha= 'TelaReconhecimentoFalha'; //
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {

@@ -29,11 +29,13 @@ class _TelaSuporteWidgetState extends State<TelaSuporteWidget> {
       backgroundColor: const Color(0xFF236742),
       body: SafeArea(
         top: true,
-        child: SingleChildScrollView( // Adiciona um widget SingleChildScrollView em volta de todos os elementos da tela
+        child: SingleChildScrollView( 
           child: Container(
-            height: screenHeight, // Define a altura do container para a altura total da tela
+            height: screenHeight,
             child: Stack(
               children: [
+
+                //TITULO DA JANELA =============================================================================
                 Positioned(
                   top: screenHeight * 0.05,
                   left: 0,
@@ -52,6 +54,8 @@ class _TelaSuporteWidgetState extends State<TelaSuporteWidget> {
                     ),
                   ),
                 ),
+
+                //SETA DE VOLTAR ==================================================================================
                 Align(
                   alignment: const AlignmentDirectional(-0.92, -0.87),
                   child: IconButton(
@@ -68,6 +72,8 @@ class _TelaSuporteWidgetState extends State<TelaSuporteWidget> {
                     constraints: const BoxConstraints(),
                   ),
                 ),
+
+                //FUNDO BRANCO ============================================================================
                 Positioned(
                   bottom: 0,
                   left: 0,
@@ -83,6 +89,8 @@ class _TelaSuporteWidgetState extends State<TelaSuporteWidget> {
                     ),
                   ),
                 ),
+
+                //TEXTO ACIMA DO CAMPO ============================================================================
                 Positioned(
                   top: screenHeight * 0.20,
                   left: 10,
@@ -102,6 +110,8 @@ class _TelaSuporteWidgetState extends State<TelaSuporteWidget> {
                     ),
                   ),
                 ),
+
+                //CAMPO PARA O USUARIO DIGITAR A MSG
                 Align(
                   alignment: const AlignmentDirectional(0, 0.20),
                   child: Padding(
@@ -168,6 +178,9 @@ class _TelaSuporteWidgetState extends State<TelaSuporteWidget> {
                     ),
                   ),
                 ),
+
+
+                //POP UP DE MSG ENVIADA ==========================================================================
                 Align(
                   alignment: const AlignmentDirectional(0, 0.90),
                   child: SizedBox(
@@ -198,6 +211,8 @@ class _TelaSuporteWidgetState extends State<TelaSuporteWidget> {
                           );
                         }
                       },
+
+                      //BOTAO DE ENVIAR =============================================================
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF236742),
                         shape: RoundedRectangleBorder(

@@ -34,14 +34,18 @@ class _TelaLoadingReconhecimentoWidgetState
       onTap: () => _unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_unfocusNode)
           : FocusScope.of(context).unfocus(),
+
+      // FUNDO BRANCO ======================================================================================
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
           top: true,
           child: Container(
-            color: Colors.white, // Define a cor de fundo do último plano como branco
+            color: Colors.white,
             child: Stack(
               children: [
+
+                //ICONE DO X PARA FECHAR =====================================================================
                 Align(
                   alignment: const AlignmentDirectional(0.83, -0.95),
                   child: IconButton(
@@ -55,6 +59,8 @@ class _TelaLoadingReconhecimentoWidgetState
                     },
                   ),
                 ),
+                
+                //IMAGEM DO LOAD =================================================================
                 Align(
                   alignment: const AlignmentDirectional(0, -0.4),
                   child: ClipRRect(
@@ -69,9 +75,9 @@ class _TelaLoadingReconhecimentoWidgetState
                   ),
                 ),
 
-                
+                //BARRA DE PROGRESSO ==============================================================================
                 Align(
-                  alignment: const AlignmentDirectional(0, 0.100),
+                  alignment: const AlignmentDirectional(0, 0.200),
                   child: Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                     child: Container(
@@ -88,7 +94,8 @@ class _TelaLoadingReconhecimentoWidgetState
                     ),
                   ),
                 ),
-
+                
+                //PARTE VERDE INFERIOR =============================================================================
                 Align(
                   alignment: const AlignmentDirectional(0, 1.15),
                   child: Container(
@@ -103,6 +110,8 @@ class _TelaLoadingReconhecimentoWidgetState
                         topRight: Radius.circular(25),
                       ),
                     ),
+
+                    //TEXTO ANALISANDO... =================================================================
                     child: const Align(
                       alignment: AlignmentDirectional(0, -0.2),
                       child: Text(

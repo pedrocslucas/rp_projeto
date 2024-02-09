@@ -75,12 +75,16 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                     topRight: Radius.circular(30),
                   ),
                 ),
+
+                //TODOS OS CAMPOS DA CONSTRUCAO ==============================================================
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+
+                        //CAMPO IDENTIFICACAO =================================================================
                         const SizedBox(height: 15),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -107,7 +111,7 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                               child: const Padding(
                                 padding: EdgeInsets.all(12.0),
                                 child: Text(
-                                  'CONST001',
+                                  'CONST001', //CAMPO DA CONSTRUCAO
                                   style: TextStyle(
                                     fontFamily: 'Readex Pro',
                                     fontSize: 17,
@@ -117,6 +121,8 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                             ),
                           ],
                         ),
+
+                        //CAMPO CONSTRUTORA =================================================================
                         const SizedBox(height: 15),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -143,7 +149,7 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                               child: const Padding(
                                 padding: EdgeInsets.all(12.0),
                                 child: Text(
-                                  'ABC Construções',
+                                  'ABC Construções', // CAMPO DA CONSTRUTORA
                                   style: TextStyle(
                                     fontFamily: 'Readex Pro',
                                     fontSize: 17,
@@ -153,6 +159,8 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                             ),
                           ],
                         ),
+
+                        //CAMPO CNPJ =================================================================
                         const SizedBox(height: 15),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -179,7 +187,7 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                               child: const Padding(
                                 padding: EdgeInsets.all(12.0),
                                 child: Text(
-                                  '00.000.000/0001-00',
+                                  '00.000.000/0001-00', // CAMPO DO CNPJ
                                   style: TextStyle(
                                     fontFamily: 'Readex Pro',
                                     fontSize: 17,
@@ -189,6 +197,8 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                             ),
                           ],
                         ),
+
+                        //CAMPO ENTRADA =================================================================
                         const SizedBox(height: 15),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -205,7 +215,7 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                                 ),
                                 const SizedBox(height: 5),
                                 Container(
-                                  width: screenWidth < 380 ? 120 : 150, // Ajuste o tamanho do Container com base na largura da tela
+                                  width: screenWidth < 380 ? 120 : 150,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       color: Colors.black,
@@ -216,7 +226,7 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                                   child: const Padding(
                                     padding: EdgeInsets.all(12.0),
                                     child: Text(
-                                      '08:00',
+                                      '08:00', // CAMPO HORA DE CHEGADA
                                       style: TextStyle(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 17,
@@ -226,7 +236,9 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                                 ),
                               ],
                             ),
-                            const SizedBox(width: 10), // Adiciona um espaçamento entre os dois containers
+
+                            //CAMPO SAIDA ===============================================================
+                            const SizedBox(width: 10), 
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -239,9 +251,7 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                                 ),
                                 const SizedBox(height: 5),
                                 Container(
-                                  width: screenWidth < 380
-                                      ? 120
-                                      : 150, // Ajuste o tamanho do Container com base na largura da tela
+                                  width: screenWidth < 380 ? 120 : 150, 
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       color: Colors.black,
@@ -252,7 +262,7 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                                   child: const Padding(
                                     padding: EdgeInsets.all(12.0),
                                     child: Text(
-                                      '17:30',
+                                      '17:30', //CAMPO HORA DA SAIDA 
                                       style: TextStyle(
                                         fontFamily: 'Readex Pro',
                                         fontSize: 17,
@@ -264,6 +274,8 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                             ),
                           ],
                         ),
+
+                        //LOCALIZACAO ========================================================================
                         const SizedBox(height: 15),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -278,8 +290,10 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                               ),
                             ),
 
-                            // ESPAÇO PARA O MAPA
+                            // ESPAÇO PARA O MAPA ===========================================
 
+
+                            //BOTAO DE REALIZAR O PONTO =================================================
                             const SizedBox(height: 32),
                             ElevatedButton(
                               onPressed: () {
@@ -288,13 +302,10 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(
                                     0xFF236742), // Define a cor de fundo do botão como verde
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 70,
-                                    vertical:
-                                        20), // Define o padding interno do botão
+                                padding: const EdgeInsets.symmetric( horizontal: 70, vertical: 20), // Define o padding interno do botão
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        20)), // Define o formato do botão como arredondado
+                                    borderRadius: BorderRadius.circular(20)
+                                  ), // Define o formato do botão como arredondado
                               ),
                               child: const Text(
                                 'Realizar Ponto',

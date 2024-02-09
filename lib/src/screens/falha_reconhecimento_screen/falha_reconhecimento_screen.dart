@@ -16,7 +16,7 @@ class TelaReconhecimentoFalhaWidget extends StatelessWidget {
         ),
       );
     }
-
+//BACKGROUND BRANCO =================================================================================================
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -26,6 +26,8 @@ class TelaReconhecimentoFalhaWidget extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+
+                  //IMAGEM DO X =============================================================================
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.asset(
@@ -36,6 +38,8 @@ class TelaReconhecimentoFalhaWidget extends StatelessWidget {
                       alignment: Alignment.center,
                     ),
                   ),
+
+                  //NOME ERRO =======================================================================================
                   const SizedBox(height: 20),
                   const Text(
                     'Erro!',
@@ -46,6 +50,8 @@ class TelaReconhecimentoFalhaWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+
+                  //TEXTO DA FALHA NO RECONHECIMENTO ================================================================
                   const SizedBox(height: 20),
                   const Text(
                     'Seu reconhecimento facial\n falhou, tente novamente.',
@@ -56,7 +62,8 @@ class TelaReconhecimentoFalhaWidget extends StatelessWidget {
                     ),
                   ),
 
-                const SizedBox(height: 150),
+              //BOTAO TENTAR NOVAMENTE ==============================================================================
+              const SizedBox(height: 150),
                Align(
                     alignment: Alignment.bottomCenter,
                     child: Column(
@@ -83,14 +90,15 @@ class TelaReconhecimentoFalhaWidget extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                            height: 20), // Ajuste esta altura conforme necessário
+                        const SizedBox(height: 20), 
                       ],
                     ),
                   ),
                 ],
               ),
             ),
+            
+            //SETA DE VOLTAR =========================================================================================
             Positioned(
               top: 0,
               right: 0,

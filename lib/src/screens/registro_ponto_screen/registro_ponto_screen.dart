@@ -58,6 +58,8 @@ class _TelaRegistroPontoWidgetState extends State<TelaRegistroPontoWidget> {
                       topRight: Radius.circular(30),
                     ),
                   ),
+
+                  // CAMPOS SOBRE O TRABALHADOR e CONSTRUTORA =======================================================
                   child: Column(
                     children: [
                       Center(
@@ -225,9 +227,7 @@ class _TelaRegistroPontoWidgetState extends State<TelaRegistroPontoWidget> {
                   )),
             ),
 
-            // CAMPOS SOBRE O TRABALHADOR ============================================================
-            // CAMPOS SOBRE O TRABALHADOR ============================================================
-
+            // BOTAO CONFIRMAR ============================================================
             Align(
               alignment: Alignment.bottomCenter,
               child: Column(

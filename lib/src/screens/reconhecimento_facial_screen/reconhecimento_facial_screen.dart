@@ -11,7 +11,9 @@ class TelaReconhecimentoFacialWidget extends StatefulWidget {
 class _TelaReconhecimentoFacialWidgetState extends State<TelaReconhecimentoFacialWidget> {
   late CameraController _controller;
 
-  @override
+//SE FOR RODAR O CODIGO NO PC (WEB) USAR ESSE CODIGO =================================================
+
+@override
   void initState() {
     super.initState();
     _initializeCamera();
@@ -19,26 +21,52 @@ class _TelaReconhecimentoFacialWidgetState extends State<TelaReconhecimentoFacia
 
   Future<void> _initializeCamera() async {
     final cameras = await availableCameras();
-    CameraDescription? frontCamera;
-
-    for (final camera in cameras) {
-      if (camera.lensDirection == CameraLensDirection.front) {
-        frontCamera = camera;
-        break;
-      }
+    if (cameras.isEmpty) {
+      // Caso não haja câmeras disponíveis, você pode tratar isso aqui
+      print('Nenhuma câmera encontrada.');
+      return;
     }
-
-    if (frontCamera == null) {
-  throw CameraException('Câmera frontal não encontrada.', 'cameraNotFound');
-}
-
-
-    _controller = CameraController(frontCamera, ResolutionPreset.medium);
+    final firstCamera = cameras.first;
+    _controller = CameraController(firstCamera, ResolutionPreset.medium);
     await _controller.initialize();
     if (mounted) {
       setState(() {});
     }
   }
+
+//// ATE AQUI O DO PC WEB ============================================================================
+
+
+////SE FOR RODAR O CODIGO NO CELULAR USAR ESSE CODIGO =================================================
+// @override
+// void initState() {
+//   super.initState();
+//   _initializeCamera();
+// }
+
+// Future<void> _initializeCamera() async {
+//   final cameras = await availableCameras();
+//   CameraDescription? backCamera; // Mudança aqui
+
+//   for (final camera in cameras) {
+//     if (camera.lensDirection == CameraLensDirection.back) { // Mudança aqui
+//       backCamera = camera; // Mudança aqui
+//       break;
+//     }
+//   }
+
+//   if (backCamera == null) {
+//     throw CameraException('Câmera traseira não encontrada.', 'cameraNotFound'); // Mudança aqui
+//   }
+
+//   _controller = CameraController(backCamera, ResolutionPreset.medium); // Mudança aqui
+//   await _controller.initialize();
+//   if (mounted) {
+//     setState(() {});
+//   }
+// }
+
+//// ATE AQUI O DO CELULAR ============================================================================
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 class TelaRegistroPontoWidget extends StatefulWidget {
   const TelaRegistroPontoWidget({Key? key}) : super(key: key);

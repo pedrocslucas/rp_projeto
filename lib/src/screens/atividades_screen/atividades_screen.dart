@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../services/firebase_utils.dart';
 
 class TelaAtividadesWidget extends StatefulWidget {
@@ -61,83 +62,87 @@ class _TelaAtividadesWidgetState extends State<TelaAtividadesWidget> {
               ),
             ),
 
-            // BOTAO QUE MOSTRA AS ATIVIDADES DO TRABALHADOR ==================================================
-            Positioned(
-              bottom: screenHeight * 0.65,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: SizedBox(
-                  width: screenWidth * 0.75,
-                  child: FutureBuilder<List<Map<String, String>>>(
-                    future: getObrasDoUsuario(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Text("Erro: ${snapshot.error}");
-                      } else {
-                        List<Map<String, String>> obras = snapshot.data ?? [];
-                        if (obras.isEmpty) {
-                          return Center(
-                            child: Text(
-                              "Você aparentemente não pertence a nenhuma obra atualmente.",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Roboto',
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+          // BOTAO QUE MOSTRA AS ATIVIDADES DO TRABALHADOR ==================================================
+          Positioned(
+            bottom: screenHeight * 0.65,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: SizedBox(
+                width: screenWidth * 0.75,
+                child: FutureBuilder<List<Map<String, String>>>(
+                  future: getObrasDoUsuario(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const SpinKitFadingFour(
+                        color: Color(0xFF236742),
+                        size: 50.0,
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text("Erro: ${snapshot.error}");
+                    } else {
+                      List<Map<String, String>> obras = snapshot.data ?? [];
+                      if (obras.isEmpty) {
+                        return const Center(
+                          child: Text(
+                            "Você aparentemente não pertence a nenhuma obra atualmente.",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Roboto',
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                             ),
-                          );
-                        } else {
-                          return Column(
-                            children: obras.map((obra) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8.0),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pushNamed('TelaInfoConstrucao', arguments: obra['id']);
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    foregroundColor: Colors.black,
-                                    backgroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4),
-                                      side: BorderSide(color: Color(0xFF236742), width: 2),
-                                    ),
-                                    padding: EdgeInsets.fromLTRB(36, 36, 36, 36),
+                          ),
+                        );
+                      } else {
+                        return Column(
+                          children: obras.map((obra) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed('TelaInfoConstrucao', arguments: obra['id']);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    side: const BorderSide(color: Color(0xFF236742), width: 2),
                                   ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(Icons.arrow_forward_ios, size: 20, color: Color(0xFF236742)),
-                                      SizedBox(width: 8),
-                                      Flexible(
-                                        child: Text(
-                                          obra['nome'].toString(),
-                                          style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  padding: const EdgeInsets.fromLTRB(36, 36, 36, 36),
                                 ),
-                              );
-                            }).toList(),
-                          );
-                        }
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(Icons.arrow_forward_ios, size: 20, color: Color(0xFF236742)),
+                                    const SizedBox(width: 8),
+                                    Flexible(
+                                      child: Text(
+                                        obra['nome'].toString(),
+                                        style: const TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        );
                       }
-                    },
-                  ),
+                    }
+                  },
                 ),
               ),
             ),
+          ),
+
 
             // POSICAO DO MENU ==============================================================================
             Positioned(

@@ -293,8 +293,23 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
   }
 
 
-  void _login() async {
+  // void _login() async {
     
+  //   String email = _emailController.text.trim();
+  //   String senha = _senhaController.text.trim();
+
+  //   User? user = await _auth.signInWithEmailAndPassword(email, senha);
+
+  //   if (user != null){
+  //     print('Usuário logado com sucesso!');
+  //     Navigator.pushNamed(context, 'TelaAtividades');
+  //   } else {
+  //     print('Erro ao fazer login!');
+  //   }
+
+  // }
+
+  void _login() async {
     String email = _emailController.text.trim();
     String senha = _senhaController.text.trim();
 
@@ -305,7 +320,23 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
       Navigator.pushNamed(context, 'TelaAtividades');
     } else {
       print('Erro ao fazer login!');
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Erro de Login'),
+            content: Text('Senha ou email incorretos. Por favor, tente novamente.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
-
   }
 }

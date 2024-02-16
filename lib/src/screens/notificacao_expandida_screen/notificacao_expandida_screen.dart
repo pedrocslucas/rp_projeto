@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TelaNotificacaoExpandidaWidget extends StatefulWidget {
   const TelaNotificacaoExpandidaWidget({Key? key}) : super(key: key);
@@ -15,7 +16,9 @@ class _TelaNotificacaoExpandidaWidgetState extends State<TelaNotificacaoExpandid
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
-     //BACKGROUND VERDE ===================================================================
+    // Recebe o ID do documento da notificação da tela anterior
+    final String notificationId = ModalRoute.of(context)!.settings.arguments as String;
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: const Color(0xFF236742),
@@ -23,16 +26,15 @@ class _TelaNotificacaoExpandidaWidgetState extends State<TelaNotificacaoExpandid
         top: true,
         child: Stack(
           children: [
-
             //TITULO DA PAGINA ==========================================================================
             Positioned(
               top: screenHeight * 0.05,
               left: 0,
               right: 0,
-              child: const SizedBox(
+              child: SizedBox(
                 width: double.infinity,
                 child: Text(
-                  'Notificações',
+                  'Notificação Expandida',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Roboto',
@@ -49,7 +51,7 @@ class _TelaNotificacaoExpandidaWidgetState extends State<TelaNotificacaoExpandid
               alignment: const AlignmentDirectional(-0.92, -0.87),
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed('TelaNotificacao');
+                  Navigator.of(context).pop();
                 },
                 icon: const Icon(
                   Icons.arrow_back_rounded,
@@ -76,66 +78,81 @@ class _TelaNotificacaoExpandidaWidgetState extends State<TelaNotificacaoExpandid
                     topRight: Radius.circular(30),
                   ),
                 ),
-              
-              //TITULO DA NOTIFICAÇÃO===================================================================
-                child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 50),
-                        const Text(
-                          'Aviso de Manutenção',
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-
-              // MENSAGEM ===============================================================================
-                        const SizedBox(height: 23), 
-                          const Center(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 25), 
-                              child: Text(
-                                'Informamos que amanhã - sexta-feira (21/04), entre as 08h e 12h, será realizada uma atualização na configuração do servidor de e-mail da universidade, por este motivo, comunicamos que na data e horário supracitados, o serviço de e-mail estará temporariamente indisponível.\n\nCaso haja alguma dúvida, favor entrar em contato com o STi através da página www.sistemas.univasf.edu.br/suporte ou do telefone: 87-2101-6809.\n\nPedimos desculpas pelos possíveis transtornos e agradecemos a compreensão de todos!'
-                                ,
-                                textAlign: TextAlign.justify,
+                child: FutureBuilder<DocumentSnapshot>(
+                  future: FirebaseFirestore.instance.collection('notificacao').doc(notificationId).get(),
+                  builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error: ${snapshot.error}'),
+                        );
+                      } else {
+                        final notificationData = snapshot.data!.data() as Map<String, dynamic>;
+                        final titulo = notificationData['titulo'] ?? '';
+                        final descricao = notificationData['descricao'] ?? '';
+                        return SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(height: 50),
+                              Text(
+                                titulo,
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.normal,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            ),
-                          ),
+                              const SizedBox(height: 23),
+                              Center(
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 25),
+                                  child: Text(
+                                    descricao,
+                                    textAlign: TextAlign.justify,
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
+                                ),
+                              ),
 
-                // BOTAO VOLTAR =========================================================================
-                        const SizedBox(height: 70),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).pushNamed('TelaNotificacao');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            backgroundColor: const Color(0xFF236742),
-                            fixedSize: const Size(215, 45),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
+                              // BOTAO VOLTAR =========================================================================
+                              const SizedBox(height: 70),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.white,
+                                  backgroundColor: const Color(0xFF236742),
+                                  fixedSize: const Size(215, 45),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Voltar',
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 25,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          child: const Text(
-                            'Voltar',
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 25,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                        );
+                      }
+                    }
+                  },
                 ),
+              ),
             ),
           ],
         ),

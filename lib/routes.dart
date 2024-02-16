@@ -14,6 +14,9 @@ import 'package:rp_projeto/src/screens/registro_ponto_screen/registro_ponto_scre
 import 'package:rp_projeto/src/screens/sucesso_reconhecimento_screen/sucesso_reconhecimento_screen.dart';
 import 'package:rp_projeto/src/screens/suporte_screen/suporte_screen.dart';
 
+
+import 'src/services/firebase_utils.dart';
+
 class Routes {
   static const String telaLogin = 'TelaLogin'; //
   static const String telaEsqueceuSenha = 'TelaEsqueceuSenha';//

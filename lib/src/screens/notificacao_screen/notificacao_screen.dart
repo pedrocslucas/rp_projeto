@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TelaNotificacaoWidget extends StatefulWidget {
   const TelaNotificacaoWidget({Key? key}) : super(key: key);
@@ -22,7 +23,6 @@ class _TelaNotificacaoWidgetState extends State<TelaNotificacaoWidget> {
         top: true,
         child: Stack(
           children: [
-
             //TITULO DA PAGINA ====================================================================
             Positioned(
               top: screenHeight * 0.05,
@@ -75,49 +75,87 @@ class _TelaNotificacaoWidgetState extends State<TelaNotificacaoWidget> {
                     topRight: Radius.circular(30),
                   ),
                 ),
-              ),
-            ),
-
-            // BOTAO QUE MOSTRA AS NOTIFICACOES DO TRABALHADOR ======================================
-            Positioned(
-              bottom: screenHeight * 0.65,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: SizedBox(
-                  width: screenWidth * 0.75,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('TelaNotificacaoExpandida');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.black,
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        side: const BorderSide(color: Color(0xFF236742), width: 2),
-                      ),
-                      padding: const EdgeInsets.fromLTRB(36, 36, 36, 36),
-                    ),
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.arrow_forward_ios, size: 20, color: Color(0xFF236742)),
-                        SizedBox(width: 8),
-                        Flexible(
-                          child: Text(
-                            'NOTIF001 - Notificação 1', //VALOR DO CAMPO DO BOTAO
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            overflow: TextOverflow.ellipsis, // Adiciona reticências se o texto for muito longo
-                            maxLines: 1, // Define o número máximo de linhas para 1
-                          ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(height: 20),
+                      Text(
+                        'Lista de Notificações',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 20),
+                      Expanded(
+                        child: StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance.collection('notificacao').snapshots(),
+                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else {
+                              if (snapshot.hasError) {
+                                return Center(
+                                  child: Text('Error: ${snapshot.error}'),
+                                );
+                              } else {
+                                final notifications = snapshot.data!.docs;
+                                return ListView.builder(
+                                  itemCount: notifications.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    final notification = notifications[index];
+                                    final titulo = notification['titulo'] ?? '';
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pushNamed('TelaNotificacaoExpandida',
+                                          arguments: notification.id);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          foregroundColor: Colors.black,
+                                          backgroundColor: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(4),
+                                            side: const BorderSide(color: Color(0xFF236742), width: 2),
+                                          ),
+                                          padding: const EdgeInsets.all(20),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(Icons.arrow_forward_ios, size: 20, color: Color(0xFF236742)),
+                                            SizedBox(width: 8),
+                                            Flexible(
+                                              child: Text(
+                                                titulo,
+                                                style: TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }
+                            }
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

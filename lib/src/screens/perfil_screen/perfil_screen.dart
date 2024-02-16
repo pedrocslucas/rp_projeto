@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../services/firebase_utils.dart';
+
+import '../../models/user_info.dart';
 
 class TelaPerfilWidget extends StatefulWidget {
   const TelaPerfilWidget({Key? key}) : super(key: key);
@@ -10,6 +13,36 @@ class TelaPerfilWidget extends StatefulWidget {
 class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentPageIndex = 2;
+  late UserInformacoes _userInfo = UserInformacoes(nome: '', cpf: '', email: '', funcao: ''); // Inicialização com valores padrão
+
+  @override
+  void initState() {
+    super.initState();
+    // Iniciando o carregamento das informações do usuário ao inicializar o widget
+    _loadUserInfo();
+  }
+
+  // Função para carregar informações do usuário
+  Future<void> _loadUserInfo() async {
+    UserInformacoes? userInfo = await getUserInfo();
+    if (userInfo != null) {
+      setState(() {
+        _userInfo = userInfo;
+      });
+    } else {
+      // Em caso de falha ao carregar as informações do usuário, exiba uma mensagem de erro
+      showSnackBar(context, 'Falha ao carregar informações do usuário.');
+    }
+  }
+
+  // Função para exibir uma Snackbar com uma mensagem de erro
+  void showSnackBar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.red,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +56,12 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
         top: true,
         child: Stack(
           children: [
-
-            //TITULO DA PAGINA ====================================================================
+            // TITULO DA PAGINA ====================================================================
             Positioned(
               top: screenHeight * 0.05,
               left: 0,
               right: 0,
-              child: const SizedBox(
+              child: SizedBox(
                 width: double.infinity,
                 child: Text(
                   'Perfil',
@@ -44,9 +76,7 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
               ),
             ),
 
-            
-
-            //BACKGOUND BRANCO ========================================================================
+            // BACKGOUND BRANCO ====================================================================
             Positioned(
               bottom: 0,
               left: 0,
@@ -62,9 +92,8 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
                 ),
               ),
             ),
-            
-            
-            // FOTO DO USUARIO=============================================================================
+
+            // FOTO DO USUARIO =====================================================================
             Positioned(
               top: screenHeight * 0.175,
               left: screenWidth * 0.5 - 60,
@@ -82,7 +111,7 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
               ),
             ),
 
-            // BORDA AO REDOR DA FOTO==================================================================
+            // BORDA AO REDOR DA FOTO =============================================================
             Positioned(
               top: screenHeight * 0.1737,
               left: screenWidth * 0.5 - 61.5,
@@ -103,7 +132,7 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
             // Icon Suporte =========================================================================
             Positioned(
               top: screenHeight * 0.18,
-              right: screenWidth *0.02,
+              right: screenWidth * 0.02,
               child: IconButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed('TelaSuporte');
@@ -116,10 +145,10 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
               ),
             ),
 
-            //Icon Notificação=======================================================================
+            // Icon Notificação ======================================================================
             Positioned(
               top: screenHeight * 0.18,
-              left: screenWidth *0.02,
+              left: screenWidth * 0.02,
               child: IconButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed('TelaNotificacao');
@@ -132,137 +161,144 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
               ),
             ),
 
-            // CAMPOS SOBRE O TRABALHADOR ============================================================
+            // CAMPOS SOBRE O TRABALHADOR ==========================================================
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 170), 
-                  const Text(
-                    'Nome:', //LABEL NOME
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontFamily: 'Readex Pro',
-                      fontSize: 18,
-                    ),
-                  ),
-                  const SizedBox(height: 5), 
-                  Container(
-                    width: 370,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(9),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(12.0),
-                      child: Text(
-                        'José Raimundo', //VALOR DO CAMPO NOME
-                        style: TextStyle(
-                          fontFamily: 'Readex Pro',
-                          fontSize: 17,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 15), 
-                  const Text(
-                    'Matrícula:', // LABEL MATRICULA
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontFamily: 'Readex Pro',
-                      fontSize: 18,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Container(
-                    width: 370,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(9),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(12.0),
-                      child: Text(
-                        '123.456.789-00', //VALOR DO CAMPO MATRICULA
-                        style: TextStyle(
-                          fontFamily: 'Readex Pro',
-                          fontSize: 17,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 15), 
-                  const Text(
-                    'Cidade:', //LABEL CIDADE
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontFamily: 'Readex Pro',
-                      fontSize: 18,
-                    ),
-                  ),
-                  const SizedBox(height: 5), 
-                  Container(
-                    width: 370,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(12.0),
-                      child: Text(
-                        'São Luís', //VALOR DO CAMPO CIDADE
-                        style: TextStyle(
-                          fontFamily: 'Readex Pro',
-                          fontSize: 17,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  const Text(
-                    'Cargo:', //LABEL CARGO
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontFamily: 'Readex Pro',
-                      fontSize: 18,
-                    ),
-                  ),
-                  const SizedBox(height: 5), 
-                  Container(
-                    width: 370,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(12.0),
-                      child: Text(
-                        'Pedreiro', //VALOR DO CAMPO CARGO
-                        style: TextStyle(
-                          fontFamily: 'Readex Pro',
-                          fontSize: 17,
-                        ),
-                      ),
-                    ),
-                  ),
+                  const SizedBox(height: 170),
+                  _userInfo != null
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Nome:', // LABEL NOME
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontFamily: 'Readex Pro',
+                                fontSize: 18,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Container(
+                              width: 370,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(9),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text(
+                                  _userInfo.nome, // VALOR NOME DO COLABORADOR
+                                  style: const TextStyle(
+                                    fontFamily: 'Readex Pro',
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            Text(
+                              'Matrícula:', // LABEL MATRICULA
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontFamily: 'Readex Pro',
+                                fontSize: 18,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Container(
+                              width: 370,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(9),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text(
+                                  _userInfo.cpf, // VALOR DO CPF DO COLABORADOR
+                                  style: const TextStyle(
+                                    fontFamily: 'Readex Pro',
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            Text(
+                              'E-Mail:', // LABEL E-Mail
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontFamily: 'Readex Pro',
+                                fontSize: 18,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Container(
+                              width: 370,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text(
+                                  _userInfo.email, // VALOR DO EMAIL DO COLABORADOR
+                                  style: const TextStyle(
+                                    fontFamily: 'Readex Pro',
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            Text(
+                              'Cargo:', // LABEL CARGO
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontFamily: 'Readex Pro',
+                                fontSize: 18,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Container(
+                              width: 370,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text(
+                                  _userInfo.funcao, // VALOR DA FUNÇÃO DO COLABORADOR
+                                  style: const TextStyle(
+                                    fontFamily: 'Readex Pro',
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : CircularProgressIndicator(), // Exibe um indicador de carregamento enquanto as informações do usuário estão sendo carregadas
                 ],
               ),
             ),
 
-            //POSICAO DO MENU ===========================================================================
+            // POSICAO DO MENU =======================================================================
             Positioned(
               bottom: 0,
               left: 0,
@@ -293,7 +329,7 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
     );
   }
 
-  // CRIACAO DO MENU ======================================================================================
+  // CRIACAO DO MENU =============================================================================
   Widget buildMenuButton(String route, IconData icon, String label, int index) {
     return InkWell(
       onTap: () {
@@ -306,7 +342,7 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(width: 100), 
+          const SizedBox(width: 100),
           Icon(
             icon,
             color: _currentPageIndex == index ? Colors.white : const Color(0x7FFFFFFF),
@@ -326,4 +362,3 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
     );
   }
 }
-

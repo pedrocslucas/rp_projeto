@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../services/firebase_utils.dart';
+import '../../models/obra_info.dart';
 
 class TelaInfoConstrucaoWidget extends StatefulWidget {
+
   const TelaInfoConstrucaoWidget({Key? key}) : super(key: key);
 
   @override
@@ -10,6 +13,43 @@ class TelaInfoConstrucaoWidget extends StatefulWidget {
 
 class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  late InformacoesObra informacoesObra = InformacoesObra(
+    identificacao: '',
+    construtora: '',
+    cnpj: '',
+  );
+
+  @override
+  void initState() {
+    super.didChangeDependencies();
+    // Inicializando a carregando informações da obra
+    // Agendar a chamada para carregarInfoObra após o initState ser concluído
+    Future.delayed(Duration.zero, () {
+      carregarInfoObra();
+    });
+  }
+
+  Future<void> carregarInfoObra() async {
+    try {
+      // Recebe o ID do documento da obra da tela anterior
+      final String obraId =
+          ModalRoute.of(context)!.settings.arguments as String;
+
+      // Carregar informações da obra
+      InformacoesObra loadInfoObra = await carregarInformacoesObra(obraId);
+
+      print("INFOOBRA = ${loadInfoObra.toString()}");
+
+      setState(() {
+        // Atualizar o estado com as informações carregadas
+        informacoesObra = loadInfoObra;
+      });
+    } catch (error) {
+      // Em caso de erro, imprima o erro
+      print("Erro ao carregar informações da obra: $error");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +123,6 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-
                         //CAMPO IDENTIFICACAO =================================================================
                         const SizedBox(height: 15),
                         Column(
@@ -108,11 +147,11 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                                 ),
                                 borderRadius: BorderRadius.circular(9),
                               ),
-                              child: const Padding(
+                              child: Padding(
                                 padding: EdgeInsets.all(12.0),
                                 child: Text(
-                                  'CONST001', //CAMPO DA CONSTRUCAO
-                                  style: TextStyle(
+                                  informacoesObra.identificacao,
+                                  style: const TextStyle(
                                     fontFamily: 'Readex Pro',
                                     fontSize: 17,
                                   ),
@@ -146,11 +185,11 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                                 ),
                                 borderRadius: BorderRadius.circular(9),
                               ),
-                              child: const Padding(
+                              child: Padding(
                                 padding: EdgeInsets.all(12.0),
                                 child: Text(
-                                  'ABC Construções', // CAMPO DA CONSTRUTORA
-                                  style: TextStyle(
+                                  informacoesObra.construtora,
+                                  style: const TextStyle(
                                     fontFamily: 'Readex Pro',
                                     fontSize: 17,
                                   ),
@@ -184,11 +223,11 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                                 ),
                                 borderRadius: BorderRadius.circular(9),
                               ),
-                              child: const Padding(
+                              child: Padding(
                                 padding: EdgeInsets.all(12.0),
                                 child: Text(
-                                  '00.000.000/0001-00', // CAMPO DO CNPJ
-                                  style: TextStyle(
+                                  informacoesObra.cnpj,
+                                  style: const TextStyle(
                                     fontFamily: 'Readex Pro',
                                     fontSize: 17,
                                   ),
@@ -200,125 +239,27 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
 
                         //CAMPO ENTRADA =================================================================
                         const SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Entrada:',
-                                  style: TextStyle(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Container(
-                                  width: screenWidth < 380 ? 120 : 150,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.black,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(9),
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(12.0),
-                                    child: Text(
-                                      '08:00', // CAMPO HORA DE CHEGADA
-                                      style: TextStyle(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 17,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                        // Você pode adicionar os demais campos aqui
+
+                        //BOTAO DE REALIZAR O PONTO =================================================
+                        const SizedBox(height: 32),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('TelaReconhecimentoFacial');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF236742),
+                            padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 20),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          ),
+                          child: const Text(
+                            'Realizar Ponto',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
                             ),
-
-                            //CAMPO SAIDA ===============================================================
-                            const SizedBox(width: 10), 
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Saída:',
-                                  style: TextStyle(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Container(
-                                  width: screenWidth < 380 ? 120 : 150, 
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.black,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(9),
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(12.0),
-                                    child: Text(
-                                      '17:30', //CAMPO HORA DA SAIDA 
-                                      style: TextStyle(
-                                        fontFamily: 'Readex Pro',
-                                        fontSize: 17,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-
-                        //LOCALIZACAO ========================================================================
-                        const SizedBox(height: 15),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Localização:',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontFamily: 'Readex Pro',
-                                fontSize: 18,
-                              ),
-                            ),
-
-                            // ESPAÇO PARA O MAPA ===========================================
-
-
-                            //BOTAO DE REALIZAR O PONTO =================================================
-                            const SizedBox(height: 32),
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).pushNamed('TelaReconhecimentoFacial');
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(
-                                    0xFF236742), // Define a cor de fundo do botão como verde
-                                padding: const EdgeInsets.symmetric( horizontal: 70, vertical: 20), // Define o padding interno do botão
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20)
-                                  ), // Define o formato do botão como arredondado
-                              ),
-                              child: const Text(
-                                'Realizar Ponto',
-                                style: TextStyle(
-                                  fontSize: 20, // Define o tamanho do texto do botão
-                                  color: Colors
-                                      .white, // Define a cor do texto como branca
-                                ),
-                                textAlign: TextAlign
-                                    .center, // Centraliza o texto dentro do botão
-                              ),
-                            ),
-                          ],
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ],
                     ),

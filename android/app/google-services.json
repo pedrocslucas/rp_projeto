@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "777215089045",
+    "firebase_url": "https://rhdatabase-93305-default-rtdb.firebaseio.com",
+    "project_id": "rhdatabase-93305",
+    "storage_bucket": "rhdatabase-93305.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777215089045:android:9bf1bfd3023872965d3e9c",
+        "android_client_info": {
+          "package_name": "com.example.firebase_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIAbS8N-oDlSn-b5fDfJpjOHudTe-ZOig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777215089045:android:d8b3c3dd31cb195e5d3e9c",
+        "android_client_info": {
+          "package_name": "com.example.rp_projeto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIAbS8N-oDlSn-b5fDfJpjOHudTe-ZOig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

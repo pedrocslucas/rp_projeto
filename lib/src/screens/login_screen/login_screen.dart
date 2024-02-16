@@ -1,33 +1,40 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../services/firebase_auth_service.dart';
+import '../../../firebase_options.dart';
 
 class TelaLoginWidget extends StatefulWidget {
   const TelaLoginWidget({Key? key}) : super(key: key);
 
   @override
   _TelaLoginWidgetState createState() => _TelaLoginWidgetState();
+
 }
 
 class _TelaLoginWidgetState extends State<TelaLoginWidget> {
-  late TextEditingController _textController1;
-  late TextEditingController _textController2;
+  late TextEditingController _emailController;
+  late TextEditingController _senhaController;
   late FocusNode _textFieldFocusNode1;
   late FocusNode _textFieldFocusNode2;
   bool _passwordVisibility = false;
+  FirebaseAuthService _auth = FirebaseAuthService();
+
 
   @override
   void initState() {
     super.initState();
-    _textController1 = TextEditingController();
-    _textController2 = TextEditingController();
+    _emailController = TextEditingController();
+    _senhaController = TextEditingController();
     _textFieldFocusNode1 = FocusNode();
     _textFieldFocusNode2 = FocusNode();
   }
 
   @override
   void dispose() {
-    _textController1.dispose();
-    _textController2.dispose();
+    _emailController.dispose();
+    _senhaController.dispose();
     _textFieldFocusNode1.dispose();
     _textFieldFocusNode2.dispose();
     super.dispose();
@@ -37,6 +44,7 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+
 
     return GestureDetector(
       onTap: () {
@@ -53,13 +61,13 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
             children: [
               Stack(
                 children: [
-
                   // NOME E LOGO DO PROJETO =============================================================
                   Positioned(
                     top: screenHeight * 0.0,
                     left: 0,
                     right: 0,
-                    child: Center( // Centraliza verticalmente em relação ao Stack
+                    child: Center(
+                      // Centraliza verticalmente em relação ao Stack
                       child: Padding(
                         padding: const EdgeInsets.all(75),
                         child: Column(
@@ -138,11 +146,11 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                             ),
                             _buildTextField(
                               label: '',
-                              controller: _textController1,
+                              controller: _emailController,
                               focusNode: _textFieldFocusNode1,
                             ),
 
-                          //CAMPO SENHA ==================================================================
+                            //CAMPO SENHA ==================================================================
                             const SizedBox(height: 20),
                             const Align(
                               alignment: AlignmentDirectional(-0.70, -0.5),
@@ -156,7 +164,7 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                             ),
                             _buildTextField(
                               label: '',
-                              controller: _textController2,
+                              controller: _senhaController,
                               focusNode: _textFieldFocusNode2,
                               isPassword: true,
                               obscureText: !_passwordVisibility,
@@ -178,7 +186,7 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                           ],
                         ),
 
-                        //ESQUECI MINH A SENHA ==========================================================
+                        //ESQUECI MINHA SENHA ==========================================================
                         const SizedBox(height: 10),
                         Align(
                           alignment: const AlignmentDirectional(-0.70, 0.22),
@@ -199,13 +207,14 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                         ),
 
                         //BOTAO ENTRAR ===================================================================
-                        const SizedBox(height: 47,),
+                        const SizedBox(
+                          height: 47,
+                        ),
                         ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, 'TelaAtividades');
-                          },
+                          onPressed: _login,
                           style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white, backgroundColor: const Color(0xFF236742),
+                            foregroundColor: Colors.white,
+                            backgroundColor: const Color(0xFF236742),
                             fixedSize: const Size(250, 45),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -224,7 +233,7 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                     ),
                   ),
                 ),
-              ), 
+              ),
             ],
           ),
         ),
@@ -244,7 +253,6 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50),
-      
       child: TextFormField(
         controller: controller,
         focusNode: focusNode,
@@ -254,7 +262,6 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
           labelStyle: const TextStyle(
             fontFamily: 'Roboto',
             fontSize: 15,
-            
           ),
           errorStyle: const TextStyle(
             fontFamily: 'Roboto',
@@ -283,5 +290,22 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
         ),
       ),
     );
+  }
+
+
+  void _login() async {
+    
+    String email = _emailController.text.trim();
+    String senha = _senhaController.text.trim();
+
+    User? user = await _auth.signInWithEmailAndPassword(email, senha);
+
+    if (user != null){
+      print('Usuário logado com sucesso!');
+      Navigator.pushNamed(context, 'TelaAtividades');
+    } else {
+      print('Erro ao fazer login!');
+    }
+
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '../../services/firebase_utils.dart';
+import '../../utils/firebase_utils.dart';
 
 class TelaAtividadesWidget extends StatefulWidget {
   const TelaAtividadesWidget({Key? key}) : super(key: key);

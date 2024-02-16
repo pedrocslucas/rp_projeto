@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../services/firebase_utils.dart';
+import '../../utils/firebase_utils.dart';
 
 import '../../models/user_info.dart';
 

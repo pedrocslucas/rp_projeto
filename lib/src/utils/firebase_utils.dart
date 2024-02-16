@@ -181,22 +181,55 @@ Future<List<RegistroPonto>> getRegistrosPonto() async {
     }
 
     String uid = user.uid;
+    print('UID do usuário: $uid');
 
-    // Consultando o Firestore para obter os registros de ponto do colaborador com base no UID
+    // Consultando o Firestore para obter o documento do colaborador com base no UID
+    QuerySnapshot colaboradorSnapshot = await FirebaseFirestore.instance
+        .collection('colaborador')
+        .where('uid', isEqualTo: uid)
+        .limit(1)
+        .get();
+
+    if (colaboradorSnapshot.docs.isEmpty) {
+      // Se não houver documento de colaborador com o UID fornecido, retornar uma lista vazia
+      return [];
+    }
+
+    // Obtendo o ID do documento do colaborador
+    String colaboradorId = colaboradorSnapshot.docs.first.id;
+
+    // Consultando o Firestore para obter os registros de ponto do colaborador com base no ID do colaborador
     QuerySnapshot registrosPontoSnapshot = await FirebaseFirestore.instance
         .collection('registros_pontos')
-        .where('colaborador', isEqualTo: uid)
+        .where('colaborador', isEqualTo: colaboradorId)
         .get();
 
     // Mapeando os documentos encontrados para objetos RegistroPonto
-    List<RegistroPonto> registrosPonto = registrosPontoSnapshot.docs.map((doc) {
-      return RegistroPonto(
-        nomeObra: doc['nome'] ?? '',
-        horaRegistroPonto: doc['hora_registro_ponto'] ?? '',
-        dataRegistroPonto: doc['data_registro_ponto'] ?? '',
-        status: doc['status'] ?? '',
+    List<RegistroPonto> registrosPonto = [];
+
+    for (DocumentSnapshot doc in registrosPontoSnapshot.docs) {
+      String obraId = doc.get('obra');
+      String status = doc.get('status') ?? '';
+
+      // Consultando o Firestore para obter o nome da obra com base no ID da obra
+      DocumentSnapshot obraSnapshot = await FirebaseFirestore.instance
+          .collection('obra')
+          .doc(obraId)
+          .get();
+
+      String nomeObra = obraSnapshot.get('nome') ?? '';
+      String horaRegistroPonto = doc.get('hora_registro_ponto') ?? '';
+      String dataRegistroPonto = doc.get('data_registro_ponto') ?? '';
+
+      // Criando um objeto RegistroPonto com os dados obtidos e adicionando à lista
+      RegistroPonto registroPonto = RegistroPonto(
+        nomeObra: nomeObra,
+        horaRegistroPonto: horaRegistroPonto,
+        dataRegistroPonto: dataRegistroPonto,
+        status: status,
       );
-    }).toList();
+      registrosPonto.add(registroPonto);
+    }
 
     // Retornando a lista de objetos RegistroPonto
     print('RegistrosPonto = ${registrosPonto.toString()}');

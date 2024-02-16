@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../services/firebase_utils.dart';
+import '../../utils/firebase_utils.dart';
 import '../../models/registro_ponto.dart';
 
 class TelaMeusPontosWidget extends StatefulWidget {

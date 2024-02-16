@@ -15,7 +15,7 @@ import 'package:rp_projeto/src/screens/sucesso_reconhecimento_screen/sucesso_rec
 import 'package:rp_projeto/src/screens/suporte_screen/suporte_screen.dart';
 
 
-import 'src/services/firebase_utils.dart';
+import 'src/utils/firebase_utils.dart';
 
 class Routes {
   static const String telaLogin = 'TelaLogin'; //

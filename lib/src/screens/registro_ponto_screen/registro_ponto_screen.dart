@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import '../../utils/firebase_utils.dart';
+
+import '../../models/registro_do_ponto.dart';
 
 class TelaRegistroPontoWidget extends StatefulWidget {
   const TelaRegistroPontoWidget({Key? key}) : super(key: key);
@@ -12,9 +14,35 @@ class TelaRegistroPontoWidget extends StatefulWidget {
 class _TelaRegistroPontoWidgetState extends State<TelaRegistroPontoWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentPageIndex = 2;
+  RegistroDoPonto? registroPonto; //Declarando como nullabel
+
+  @override
+  void initState() {
+    super.initState();
+    _buscarRegistroPontoAtual();
+  }
+
+  Future<void> _buscarRegistroPontoAtual() async {
+    try {
+      registroPonto = await getRegistroPontoAtual();
+      setState(() {}); // Atualizar a tela após obter os dados
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Erro ao buscar o registro de ponto: $error"),
+      ));
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    // Verifica se registroPonto é null antes de usá-lo
+    String nome = registroPonto?.nome ?? '';
+    String cpf = registroPonto?.cpf ?? '';
+    String localizacao = registroPonto?.localizacao ?? '';
+    String hora = registroPonto?.hora ?? '';
+    String funcao = registroPonto?.funcao ?? '';
+
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
@@ -50,182 +78,186 @@ class _TelaRegistroPontoWidgetState extends State<TelaRegistroPontoWidget> {
               bottom: 0,
               left: 0,
               child: Container(
-                  width: screenWidth,
-                  height: screenHeight * 0.83,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
+                width: screenWidth,
+                height: screenHeight * 0.83,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                   ),
+                ),
 
-                  // CAMPOS SOBRE O TRABALHADOR e CONSTRUTORA =======================================================
-                  child: Column(
-                    children: [
-                      Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // const SizedBox(height: 20),
-                            screenHeight <= 686 ? const SizedBox(height: 20) : const SizedBox(height: 50),
+                // CAMPOS SOBRE O TRABALHADOR e CONSTRUTORA =======================================================
+                child: Column(
+                  children: [
+                    Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // const SizedBox(height: 20),
+                          screenHeight <= 686
+                              ? const SizedBox(height: 20)
+                              : const SizedBox(height: 50),
 
-                            const Text(
-                              'Nome:', //LABEL NOME
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontFamily: 'Readex Pro',
-                                fontSize: 18,
-                              ),
+                          Text(
+                            'Nome:', //LABEL NOME
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontFamily: 'Readex Pro',
+                              fontSize: 18,
                             ),
-                            const SizedBox(height: 5),
-                            Container(
-                              width: 370,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(9),
+                          ),
+                          const SizedBox(height: 5),
+                          Container(
+                            width: 370,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 1,
                               ),
-                              child: const Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text(
-                                  'José Raimundo', //VALOR DO CAMPO NOME
-                                  style: TextStyle(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 17,
-                                  ),
-                                ),
-                              ),
+                              borderRadius: BorderRadius.circular(9),
                             ),
-                            const SizedBox(height: 15),
-                            const Text(
-                              'Matrícula:', // LABEL MATRICULA
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontFamily: 'Readex Pro',
-                                fontSize: 18,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            Container(
-                              width: 370,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(9),
-                              ),
-                              child: const Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text(
-                                  '123.456.789-00', //VALOR DO CAMPO MATRICULA
-                                  style: TextStyle(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 17,
-                                  ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                nome, //VALOR DO CAMPO NOME
+                                style: const TextStyle(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 17,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 15),
-                            const Text(
-                              'Hora de Entrada:', //LABEL CIDADE
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontFamily: 'Readex Pro',
-                                fontSize: 18,
-                              ),
+                          ),
+                          const SizedBox(height: 15),
+                          Text(
+                            'Matrícula:', // LABEL MATRICULA
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontFamily: 'Readex Pro',
+                              fontSize: 18,
                             ),
-                            const SizedBox(height: 5),
-                            Container(
-                              width: 370,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(10),
+                          ),
+                          const SizedBox(height: 5),
+                          Container(
+                            width: 370,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 1,
                               ),
-                              child: const Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text(
-                                  '07:45', //VALOR DO CAMPO CIDADE
-                                  style: TextStyle(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 17,
-                                  ),
-                                ),
-                              ),
+                              borderRadius: BorderRadius.circular(9),
                             ),
-                            const SizedBox(height: 15),
-                            const Text(
-                              'Localização:', //LABEL CARGO
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontFamily: 'Readex Pro',
-                                fontSize: 18,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            Container(
-                              width: 370,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: const Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text(
-                                  'Rua Medeiros, Cohab, São Luís - MA', //VALOR DO CAMPO CARGO
-                                  style: TextStyle(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 17,
-                                  ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                cpf, //VALOR DO CAMPO CPF
+                                style: const TextStyle(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 17,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 15),
-                            const Text(
-                              'Cargo:', //LABEL CARGO
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontFamily: 'Readex Pro',
-                                fontSize: 18,
+                          ),
+                          const SizedBox(height: 15),
+                          Text(
+                            'Hora de Entrada:', //LABEL HORA
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontFamily: 'Readex Pro',
+                              fontSize: 18,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Container(
+                            width: 370,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                hora, //VALOR DO CAMPO HORA
+                                style: const TextStyle(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 17,
+                                ),
                               ),
                             ),
-                            const SizedBox(height: 5),
-                            Container(
-                              width: 370,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(10),
+                          ),
+                          const SizedBox(height: 15),
+                          Text(
+                            'Localização:', //LABEL LOCALIZAÇÃO
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontFamily: 'Readex Pro',
+                              fontSize: 18,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Container(
+                            width: 370,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 1,
                               ),
-                              child: const Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text(
-                                  'Pedreiro', //VALOR DO CAMPO CARGO
-                                  style: TextStyle(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 17,
-                                  ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                localizacao,
+                                //VALOR DO CAMPO ENDEREÇO
+                                style: const TextStyle(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 17,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 20),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(height: 15),
+                          Text(
+                            'Cargo:', //LABEL CARGO
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontFamily: 'Readex Pro',
+                              fontSize: 18,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Container(
+                            width: 370,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                funcao, //VALOR DO CAMPO FUNÇÃO
+                                style: const TextStyle(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 17,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                        ],
                       ),
-                    ],
-                  )),
+                    ),
+                  ],
+                ),
+              ),
             ),
 
             // BOTAO CONFIRMAR ============================================================

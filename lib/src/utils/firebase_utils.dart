@@ -1,7 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
+import 'package:intl/intl.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 
 import '../models/user_info.dart';
+import '../models/registro_do_ponto.dart';
 import '../models/registro_ponto.dart';
 import '../models/obra_info.dart';
 
@@ -238,5 +244,121 @@ Future<List<RegistroPonto>> getRegistrosPonto() async {
     // Em caso de erro, lançar uma exceção
     print("Erro ao obter registros de ponto do colaborador: $error");
     throw Exception('Erro ao obter registros de ponto do colaborador.');
+  }
+}
+
+// OTHER FUNCTION ==================================================================================
+
+//Função para enviar a mensagem 'feedback' do usuário para o suporte do sistema.
+Future<void> enviarFeedbackPorEmail(String feedback) async {
+  try {
+    // Obtendo o usuário atualmente autenticado
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      // Se o usuário não estiver autenticado, lançar uma exceção
+      throw Exception('Usuário não autenticado.');
+    }
+
+    // Obtendo o email do usuário logado
+    String userEmail = user.email ?? '';
+
+    // Configurações do servidor SMTP
+    final smtpServer = gmail('email@gmail.com', 'senha');
+
+    // Criando a mensagem de email
+    final message = Message()
+      ..from = Address('email@gmail.com', 'Sua Equipe de Suporte')
+      ..recipients.add('pedrocslucas.dev@gmail.com') // Email para onde será enviado o feedback
+      ..subject = 'Feedback do Usuário'
+      ..text = 'Feedback do usuário $userEmail:\n\n$feedback';
+
+    // Enviando o email
+    final sendReport = await send(message, smtpServer);
+
+    print('Email enviado: ${sendReport.toString()}');
+  } catch (error) {
+    // Em caso de erro, imprima o erro
+    print("Erro ao enviar o feedback por email: $error");
+    throw Exception('Erro ao enviar o feedback por email.');
+  }
+}
+
+// OTHER FUNCTION ==================================================================================
+
+//Função para obter os dados do registro de ponto do colaborador.
+Future<RegistroDoPonto> getRegistroPontoAtual() async {
+  try {
+    // Obtendo o usuário atualmente autenticado
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      // Se o usuário não estiver autenticado, lançar uma exceção
+      throw Exception('Usuário não autenticado.');
+    }
+
+    // Obtendo o UID do usuário atual
+    String uid = user.uid;
+
+    // Consultando o Firestore para obter os dados do colaborador com base no UID
+    QuerySnapshot colaboradorSnapshot = await FirebaseFirestore.instance
+        .collection('colaborador')
+        .where('uid', isEqualTo: uid)
+        .limit(1)
+        .get();
+
+    // Verificando se foi encontrado algum documento de colaborador
+    if (colaboradorSnapshot.docs.isEmpty) {
+      throw Exception('Documento de colaborador não encontrado.');
+    }
+
+    // Obtendo os dados do colaborador
+    DocumentSnapshot colaboradorDoc = colaboradorSnapshot.docs.first;
+    String nomeColaborador = colaboradorDoc.get('nome') ?? '';
+    String cpfColaborador = colaboradorDoc.get('cpf') ?? '';
+    String funcaoId = colaboradorDoc.get('funcao') ?? '';
+
+    // Consultando a collection 'funcoes_colaborador' para obter o nome da função com base no ID
+    DocumentSnapshot funcaoSnapshot = await FirebaseFirestore.instance
+        .collection('funcoes_colaborador')
+        .doc(funcaoId)
+        .get();
+
+    // Verificando se foi encontrada a função
+    if (!funcaoSnapshot.exists) {
+      throw Exception('Função do colaborador não encontrada.');
+    }
+
+    // Obtendo o nome da função
+    String nomeFuncao = funcaoSnapshot.get('nome') ?? '';
+
+    // Obtendo a localização atual do usuário
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    // Obtendo o endereço correspondente às coordenadas
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+
+    String enderecoAtual = placemarks.isNotEmpty
+        ? placemarks.first.street ?? 'Endereço não encontrado'
+        : 'Endereço não encontrado';
+
+    // Obtendo a hora atual do sistema
+    String horaAtual =
+        DateFormat('HH:mm:ss').format(DateTime.now());
+
+    // Criando e retornando o objeto RegistroDoPonto
+    return RegistroDoPonto(
+      nome: nomeColaborador,
+      cpf: cpfColaborador,
+      localizacao: enderecoAtual,
+      hora: horaAtual,
+      funcao: nomeFuncao,
+    );
+  } catch (error) {
+    // Em caso de erro, lançar uma exceção
+    print("Erro ao obter registro de ponto atual: $error");
+    throw Exception('Erro ao obter registro de ponto atual.');
   }
 }

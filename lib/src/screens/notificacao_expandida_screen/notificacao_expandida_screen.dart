@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class TelaNotificacaoExpandidaWidget extends StatefulWidget {
   const TelaNotificacaoExpandidaWidget({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class _TelaNotificacaoExpandidaWidgetState extends State<TelaNotificacaoExpandid
               top: screenHeight * 0.05,
               left: 0,
               right: 0,
-              child: SizedBox(
+              child: const SizedBox(
                 width: double.infinity,
                 child: Text(
                   'Notificação Expandida',
@@ -82,8 +83,9 @@ class _TelaNotificacaoExpandidaWidgetState extends State<TelaNotificacaoExpandid
                   future: FirebaseFirestore.instance.collection('notificacao').doc(notificationId).get(),
                   builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: CircularProgressIndicator(),
+                      return const SpinKitFadingFour(
+                        color: Color(0xFF236742),
+                        size: 50.0,
                       );
                     } else {
                       if (snapshot.hasError) {

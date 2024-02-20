@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class TelaNotificacaoWidget extends StatefulWidget {
   const TelaNotificacaoWidget({Key? key}) : super(key: key);
@@ -80,8 +81,8 @@ class _TelaNotificacaoWidgetState extends State<TelaNotificacaoWidget> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SizedBox(height: 20),
-                      Text(
+                      const SizedBox(height: 20),
+                      const Text(
                         'Lista de Notificações',
                         style: TextStyle(
                           color: Colors.black,
@@ -90,14 +91,15 @@ class _TelaNotificacaoWidgetState extends State<TelaNotificacaoWidget> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Expanded(
                         child: StreamBuilder<QuerySnapshot>(
                           stream: FirebaseFirestore.instance.collection('notificacao').snapshots(),
                           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
-                              return Center(
-                                child: CircularProgressIndicator(),
+                              return const SpinKitFadingFour(
+                                color: Color(0xFF236742),
+                                size: 50.0,
                               );
                             } else {
                               if (snapshot.hasError) {
@@ -130,12 +132,12 @@ class _TelaNotificacaoWidgetState extends State<TelaNotificacaoWidget> {
                                         child: Row(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            Icon(Icons.arrow_forward_ios, size: 20, color: Color(0xFF236742)),
-                                            SizedBox(width: 8),
+                                            const Icon(Icons.arrow_forward_ios, size: 20, color: Color(0xFF236742)),
+                                            const SizedBox(width: 8),
                                             Flexible(
                                               child: Text(
                                                 titulo,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontFamily: 'Roboto',
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold,

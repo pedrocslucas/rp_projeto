@@ -17,6 +17,7 @@ void main() async {
 }
 
 Future<void> _requestPermissions() async {
+  await Permission.location.request();
   await Permission.camera.request();
   await Permission.microphone.request();
 }

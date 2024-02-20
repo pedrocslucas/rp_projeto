@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../utils/firebase_utils.dart';
 import '../../models/registro_ponto.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class TelaMeusPontosWidget extends StatefulWidget {
   const TelaMeusPontosWidget({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   int _currentPageIndex = 1;
   List<RegistroPonto> _registrosPonto = []; // Lista para armazenar os registros de ponto
+  bool _isLoading = true; // Estado para controlar o carregamento
 
   @override
   void initState() {
@@ -22,18 +24,19 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
 
   // Função para carregar os registros de ponto do colaborador atual
   Future<void> _carregarRegistrosPonto() async {
-  try {
-    // Obtendo os registros de ponto do colaborador
-    List<RegistroPonto> registrosPonto = await getRegistrosPonto();
-    setState(() {
-      _registrosPonto = registrosPonto;
-    });
-    print('RegistrosPontos = ${_registrosPonto.toString()}');
-  } catch (error) {
-    // Em caso de erro, exibir uma mensagem de erro
-    _showSnackBar('Erro ao carregar os registros de ponto: $error');
+    try {
+      // Obtendo os registros de ponto do colaborador
+      List<RegistroPonto> registrosPonto = await getRegistrosPonto();
+      setState(() {
+        _registrosPonto = registrosPonto;
+        _isLoading = false; // Atualiza o estado para indicar que o carregamento foi concluído
+      });
+      print('RegistrosPontos = ${_registrosPonto.toString()}');
+    } catch (error) {
+      // Em caso de erro, exibir uma mensagem de erro
+      _showSnackBar('Erro ao carregar os registros de ponto: $error');
+    }
   }
-}
 
   // Função para exibir uma Snackbar com uma mensagem de erro
   void _showSnackBar(String message) {
@@ -89,128 +92,135 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
                     topRight: Radius.circular(30),
                   ),
                 ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 40,),
-                      // Lista de registros de ponto
-                      for (var registroPonto in _registrosPonto) ...[
-                        Center(
-                          child: SizedBox(
-                            width: screenWidth * 0.75,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(color: const Color(0xFF236742), width: 3),
-                              ),
-                              padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Align(
-                                    alignment: AlignmentDirectional(-0.8, -1),
-                                    child: Text(
-                                      registroPonto.nomeObra,
-                                      style: const TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                child: _isLoading
+                    ? const Center(
+                        child: SpinKitFadingFour(
+                        color: Color(0xFF236742),
+                        size: 50.0,
+                      )
+                    )
+                    : SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 40,),
+                            // Lista de registros de ponto
+                            for (var registroPonto in _registrosPonto) ...[
+                              Center(
+                                child: SizedBox(
+                                  width: screenWidth * 0.75,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(color: const Color(0xFF236742), width: 3),
+                                    ),
+                                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Align(
+                                          alignment: AlignmentDirectional(-0.8, -1),
+                                          child: Text(
+                                            registroPonto.nomeObra,
+                                            style: const TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 15),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            const Align(
+                                              alignment: AlignmentDirectional(-0.89, 0),
+                                              child: Text(
+                                                'Data:',
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  fontFamily: 'Readex Pro',
+                                                  fontSize: 15,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: Colors.black,
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius: BorderRadius.circular(5),
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(15.0),
+                                                    child: Text(
+                                                      '${registroPonto.horaRegistroPonto} - ${registroPonto.dataRegistroPonto}',
+                                                      style: const TextStyle(
+                                                        fontFamily: 'Readex Pro',
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 15),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            const Align(
+                                              alignment: AlignmentDirectional(-0.89, 0),
+                                              child: Text(
+                                                'Status:',
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  fontFamily: 'Readex Pro',
+                                                  fontSize: 15,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: Colors.black,
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius: BorderRadius.circular(5),
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(15.0),
+                                                    child: Text(
+                                                      registroPonto.status,
+                                                      style: const TextStyle(
+                                                        fontFamily: 'Readex Pro',
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  const SizedBox(height: 15),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Align(
-                                        alignment: AlignmentDirectional(-0.89, 0),
-                                        child: const Text(
-                                          'Data:',
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                            fontFamily: 'Readex Pro',
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: Colors.black,
-                                                width: 1,
-                                              ),
-                                              borderRadius: BorderRadius.circular(5),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(15.0),
-                                              child: Text(
-                                                '${registroPonto.horaRegistroPonto} - ${registroPonto.dataRegistroPonto}',
-                                                style: const TextStyle(
-                                                  fontFamily: 'Readex Pro',
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 15),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Align(
-                                        alignment: AlignmentDirectional(-0.89, 0),
-                                        child: const Text(
-                                          'Status:',
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                            fontFamily: 'Readex Pro',
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: Colors.black,
-                                                width: 1,
-                                              ),
-                                              borderRadius: BorderRadius.circular(5),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(15.0),
-                                              child: Text(
-                                                registroPonto.status,
-                                                style: const TextStyle(
-                                                  fontFamily: 'Readex Pro',
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
+                              const SizedBox(height: 40,),
+                            ],
+                          ],
                         ),
-                        const SizedBox(height: 40,),
-                      ],
-                    ],
-                  ),
-                ),
+                      ),
               ),
             ),
             // POSIÇÃO DO MENU

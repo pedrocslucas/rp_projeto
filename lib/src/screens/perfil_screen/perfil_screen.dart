@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../utils/firebase_utils.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../models/user_info.dart';
 
@@ -61,7 +62,7 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
               top: screenHeight * 0.05,
               left: 0,
               right: 0,
-              child: SizedBox(
+              child: const SizedBox(
                 width: double.infinity,
                 child: Text(
                   'Perfil',
@@ -161,7 +162,6 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
               ),
             ),
 
-            // CAMPOS SOBRE O TRABALHADOR ==========================================================
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -172,7 +172,7 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Nome:', // LABEL NOME
                               textAlign: TextAlign.start,
                               style: TextStyle(
@@ -181,28 +181,31 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
                               ),
                             ),
                             const SizedBox(height: 5),
-                            Container(
-                              width: 370,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
+                            Skeletonizer(
+                              enabled: _userInfo.nome.isEmpty, // Ativa o esqueleto se o nome do usuário estiver vazio
+                              child: Container(
+                                width: 370,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(9),
                                 ),
-                                borderRadius: BorderRadius.circular(9),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Text(
-                                  _userInfo.nome, // VALOR NOME DO COLABORADOR
-                                  style: const TextStyle(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 17,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Text(
+                                    _userInfo.nome.isNotEmpty ? _userInfo.nome : '________________________', 
+                                    style: const TextStyle(
+                                      fontFamily: 'Readex Pro',
+                                      fontSize: 17,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                             const SizedBox(height: 15),
-                            Text(
+                            const Text(
                               'Matrícula:', // LABEL MATRICULA
                               textAlign: TextAlign.start,
                               style: TextStyle(
@@ -211,28 +214,31 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
                               ),
                             ),
                             const SizedBox(height: 5),
-                            Container(
-                              width: 370,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
+                            Skeletonizer(
+                              enabled: _userInfo.cpf.isEmpty, // Ativa o esqueleto se o CPF do usuário estiver vazio
+                              child: Container(
+                                width: 370,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(9),
                                 ),
-                                borderRadius: BorderRadius.circular(9),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Text(
-                                  _userInfo.cpf, // VALOR DO CPF DO COLABORADOR
-                                  style: const TextStyle(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 17,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Text(
+                                    _userInfo.cpf.isNotEmpty ? _userInfo.cpf : '________________________', 
+                                    style: const TextStyle(
+                                      fontFamily: 'Readex Pro',
+                                      fontSize: 17,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                             const SizedBox(height: 15),
-                            Text(
+                            const Text(
                               'E-Mail:', // LABEL E-Mail
                               textAlign: TextAlign.start,
                               style: TextStyle(
@@ -241,28 +247,31 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
                               ),
                             ),
                             const SizedBox(height: 5),
-                            Container(
-                              width: 370,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
+                            Skeletonizer(
+                              enabled: _userInfo.email.isEmpty, // Ativa o esqueleto se o e-mail do usuário estiver vazio
+                              child: Container(
+                                width: 370,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Text(
-                                  _userInfo.email, // VALOR DO EMAIL DO COLABORADOR
-                                  style: const TextStyle(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 17,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Text(
+                                    _userInfo.email.isNotEmpty ? _userInfo.email : '________________________', 
+                                    style: const TextStyle(
+                                      fontFamily: 'Readex Pro',
+                                      fontSize: 17,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                             const SizedBox(height: 15),
-                            Text(
+                            const Text(
                               'Cargo:', // LABEL CARGO
                               textAlign: TextAlign.start,
                               style: TextStyle(
@@ -271,32 +280,36 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
                               ),
                             ),
                             const SizedBox(height: 5),
-                            Container(
-                              width: 370,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
+                            Skeletonizer(
+                              enabled: _userInfo.funcao.isEmpty, // Ativa o esqueleto se a função do usuário estiver vazia
+                              child: Container(
+                                width: 370,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Text(
-                                  _userInfo.funcao, // VALOR DA FUNÇÃO DO COLABORADOR
-                                  style: const TextStyle(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 17,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Text(
+                                    _userInfo.funcao.isNotEmpty ? _userInfo.funcao : '________________________', 
+                                    style: const TextStyle(
+                                      fontFamily: 'Readex Pro',
+                                      fontSize: 17,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ],
                         )
-                      : CircularProgressIndicator(), // Exibe um indicador de carregamento enquanto as informações do usuário estão sendo carregadas
+                      : const CircularProgressIndicator(), // Exibe um indicador de carregamento enquanto as informações do usuário estão sendo carregadas
                 ],
               ),
             ),
+
 
             // POSICAO DO MENU =======================================================================
             Positioned(

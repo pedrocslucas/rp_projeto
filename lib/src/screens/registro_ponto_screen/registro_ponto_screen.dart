@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import '../../utils/firebase_utils.dart';
 
 import '../../models/registro_do_ponto.dart';
@@ -101,7 +102,7 @@ class _TelaRegistroPontoWidgetState extends State<TelaRegistroPontoWidget> {
                               ? const SizedBox(height: 20)
                               : const SizedBox(height: 50),
 
-                          Text(
+                          const Text(
                             'Nome:', //LABEL NOME
                             textAlign: TextAlign.start,
                             style: TextStyle(
@@ -131,7 +132,7 @@ class _TelaRegistroPontoWidgetState extends State<TelaRegistroPontoWidget> {
                             ),
                           ),
                           const SizedBox(height: 15),
-                          Text(
+                          const Text(
                             'Matrícula:', // LABEL MATRICULA
                             textAlign: TextAlign.start,
                             style: TextStyle(
@@ -161,7 +162,7 @@ class _TelaRegistroPontoWidgetState extends State<TelaRegistroPontoWidget> {
                             ),
                           ),
                           const SizedBox(height: 15),
-                          Text(
+                          const Text(
                             'Hora de Entrada:', //LABEL HORA
                             textAlign: TextAlign.start,
                             style: TextStyle(
@@ -191,7 +192,7 @@ class _TelaRegistroPontoWidgetState extends State<TelaRegistroPontoWidget> {
                             ),
                           ),
                           const SizedBox(height: 15),
-                          Text(
+                          const Text(
                             'Localização:', //LABEL LOCALIZAÇÃO
                             textAlign: TextAlign.start,
                             style: TextStyle(
@@ -222,7 +223,7 @@ class _TelaRegistroPontoWidgetState extends State<TelaRegistroPontoWidget> {
                             ),
                           ),
                           const SizedBox(height: 15),
-                          Text(
+                          const Text(
                             'Cargo:', //LABEL CARGO
                             textAlign: TextAlign.start,
                             style: TextStyle(

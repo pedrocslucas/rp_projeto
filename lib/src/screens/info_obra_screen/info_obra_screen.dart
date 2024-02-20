@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import '../../utils/firebase_utils.dart';
 import '../../models/obra_info.dart';
 
@@ -49,6 +52,46 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
       // Em caso de erro, imprima o erro
       print("Erro ao carregar informações da obra: $error");
     }
+  }
+
+  Widget _buildMapWidget() {
+    return FlutterMap(
+      options: const MapOptions(
+        initialCenter: LatLng(51.509364, -0.128928),
+        initialZoom: 15.5,
+      ),
+      children: [
+        TileLayer(
+          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          userAgentPackageName: 'com.example.app',
+        ),
+        const CircleLayer(
+        circles: [
+          CircleMarker(
+            point: LatLng(51.509364, -0.128928),
+            radius: 100,
+            useRadiusInMeter: true,
+            color: Color.fromARGB(109, 54, 57, 244) 
+          ),
+        ],
+      ),
+        const MarkerLayer(
+          markers: [
+            Marker(
+              point: LatLng(51.509364, -0.128928),
+              width: 80,
+              height: 80,
+              child: Icon(
+                Icons.location_on,
+                color: Colors.red,
+                size: 40.0,
+              ),
+            ),
+          ],
+        ),
+        
+      ],
+    );
   }
 
   @override
@@ -138,22 +181,25 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                               ),
                             ),
                             const SizedBox(height: 5),
-                            Container(
-                              width: 300,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
+                            Skeletonizer(
+                              enabled: informacoesObra.identificacao.isEmpty,
+                              child: Container(
+                                width: 300,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(9),
                                 ),
-                                borderRadius: BorderRadius.circular(9),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text(
-                                  informacoesObra.identificacao,
-                                  style: const TextStyle(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 17,
+                                child: Padding(
+                                  padding: EdgeInsets.all(12.0),
+                                  child: Text(
+                                    informacoesObra.identificacao.isNotEmpty ? informacoesObra.identificacao : '________________________',
+                                    style: const TextStyle(
+                                      fontFamily: 'Readex Pro',
+                                      fontSize: 17,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -176,22 +222,25 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                               ),
                             ),
                             const SizedBox(height: 5),
-                            Container(
-                              width: 300,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
+                            Skeletonizer(
+                              enabled: informacoesObra.construtora.isEmpty,
+                              child: Container(
+                                width: 300,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(9),
                                 ),
-                                borderRadius: BorderRadius.circular(9),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text(
-                                  informacoesObra.construtora,
-                                  style: const TextStyle(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 17,
+                                child: Padding(
+                                  padding: EdgeInsets.all(12.0),
+                                  child: Text(
+                                    informacoesObra.construtora.isNotEmpty ? informacoesObra.construtora : '________________________',
+                                    style: const TextStyle(
+                                      fontFamily: 'Readex Pro',
+                                      fontSize: 17,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -214,22 +263,25 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                               ),
                             ),
                             const SizedBox(height: 5),
-                            Container(
-                              width: 300,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
+                            Skeletonizer(
+                              enabled: informacoesObra.cnpj.isEmpty,
+                              child: Container(
+                                width: 300,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(9),
                                 ),
-                                borderRadius: BorderRadius.circular(9),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Text(
-                                  informacoesObra.cnpj,
-                                  style: const TextStyle(
-                                    fontFamily: 'Readex Pro',
-                                    fontSize: 17,
+                                child: Padding(
+                                  padding: EdgeInsets.all(12.0),
+                                  child: Text(
+                                     informacoesObra.cnpj.isNotEmpty ? informacoesObra.cnpj : '________________________',
+                                    style: const TextStyle(
+                                      fontFamily: 'Readex Pro',
+                                      fontSize: 17,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -240,6 +292,29 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                         //CAMPO ENTRADA =================================================================
                         const SizedBox(height: 15),
                         // Você pode adicionar os demais campos aqui
+
+                        //LOCALIZACAO ========================================================================
+                        const SizedBox(height: 15),
+                         Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Localização:',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontFamily: 'Readex Pro',
+                                fontSize: 18,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 300,
+                              height: 200,
+                              child: _buildMapWidget(), // Use o MapWidget aqui
+                            ),
+                          ],
+                        ),
+
 
                         //BOTAO DE REALIZAR O PONTO =================================================
                         const SizedBox(height: 32),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:get/get.dart';
 
 class TelaLoadingReconhecimentoWidget extends StatefulWidget {
   const TelaLoadingReconhecimentoWidget({Key? key}) : super(key: key);
@@ -55,7 +56,7 @@ class _TelaLoadingReconhecimentoWidgetState
                       size: 40,
                     ),
                     onPressed: () async {
-                      Navigator.of(context).pushNamed('TelaInfoConstrucao');
+                      Get.toNamed('/TelaInfoConstrucao');
                     },
                   ),
                 ),

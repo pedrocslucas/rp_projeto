@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class TelaReconhecimentoSucessoWidget extends StatelessWidget {
   const TelaReconhecimentoSucessoWidget({Key? key}) : super(key: key);
@@ -72,7 +73,7 @@ class TelaReconhecimentoSucessoWidget extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, 'TelaRegistroPonto');
+                            Get.toNamed('/TelaRegistroPonto');
                           },
                           style: ElevatedButton.styleFrom(
                             foregroundColor: Colors.white,
@@ -107,7 +108,7 @@ class TelaReconhecimentoSucessoWidget extends StatelessWidget {
               child: IconButton(
                 icon: const Icon(Icons.close),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('TelaAtividades');
+                  Get.toNamed('/TelaAtividades');
                 },
               ),
             ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import '../../services/firebase_auth_service.dart';
 import '../../../firebase_options.dart';
 
@@ -192,7 +193,7 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
                           alignment: const AlignmentDirectional(-0.70, 0.22),
                           child: InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, 'TelaEsqueceuSenha');
+                              Get.toNamed('/TelaEsqueceuSenha');
                             },
                             child: const Text(
                               'Esqueci minha senha',
@@ -317,7 +318,7 @@ class _TelaLoginWidgetState extends State<TelaLoginWidget> {
 
     if (user != null){
       print('Usuário logado com sucesso!');
-      Navigator.pushNamed(context, 'TelaAtividades');
+      Get.toNamed('/TelaAtividades');
     } else {
       print('Erro ao fazer login!');
       showDialog(

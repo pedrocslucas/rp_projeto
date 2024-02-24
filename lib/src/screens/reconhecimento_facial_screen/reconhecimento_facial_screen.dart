@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:get/get.dart';
 
 class TelaReconhecimentoFacialWidget extends StatefulWidget {
   const TelaReconhecimentoFacialWidget({Key? key}) : super(key: key);
@@ -131,7 +132,7 @@ class _TelaReconhecimentoFacialWidgetState extends State<TelaReconhecimentoFacia
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('TelaReconhecimentoSucesso');
+                      Get.toNamed('/TelaReconhecimentoSucesso');
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
@@ -178,7 +179,7 @@ class _TelaReconhecimentoFacialWidgetState extends State<TelaReconhecimentoFacia
               alignment: const AlignmentDirectional(-0.92, -0.90),
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed('TelaInfoConstrucao');
+                  Get.toNamed('/TelaInfoConstrucao');
                 },
                 icon: const Icon(
                   Icons.arrow_back_rounded,

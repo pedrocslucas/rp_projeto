@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TelaEsqueceuSenhaWidget extends StatefulWidget {
   const TelaEsqueceuSenhaWidget({Key? key}) : super(key: key);
@@ -158,7 +159,7 @@ class _TelaEsqueceuSenhaWidgetState extends State<TelaEsqueceuSenhaWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () {
-                            Navigator.pushNamed(context, 'TelaLogin');
+                            Get.toNamed('/TelaLogin');
                           },
                           child: const Text(
                             'Voltar para Login',

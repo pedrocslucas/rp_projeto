@@ -269,7 +269,7 @@ Future<void> enviarFeedbackPorEmail(String feedback) async {
     // Criando a mensagem de email
     final message = Message()
       ..from = Address('email@gmail.com', 'Sua Equipe de Suporte')
-      ..recipients.add('pedrocslucas.dev@gmail.com') // Email para onde será enviado o feedback
+      ..recipients.add('feedback@gmail.com') // Email para onde será enviado o feedback
       ..subject = 'Feedback do Usuário'
       ..text = 'Feedback do usuário $userEmail:\n\n$feedback';
 
@@ -299,6 +299,7 @@ Future<RegistroDoPonto> getRegistroPontoAtual() async {
 
     // Obtendo o UID do usuário atual
     String uid = user.uid;
+    print('UID = ${uid}');
 
     // Consultando o Firestore para obter os dados do colaborador com base no UID
     QuerySnapshot colaboradorSnapshot = await FirebaseFirestore.instance
@@ -306,7 +307,8 @@ Future<RegistroDoPonto> getRegistroPontoAtual() async {
         .where('uid', isEqualTo: uid)
         .limit(1)
         .get();
-
+    
+    print('User = ${colaboradorSnapshot.toString()}');
     // Verificando se foi encontrado algum documento de colaborador
     if (colaboradorSnapshot.docs.isEmpty) {
       throw Exception('Documento de colaborador não encontrado.');
@@ -332,13 +334,18 @@ Future<RegistroDoPonto> getRegistroPontoAtual() async {
     // Obtendo o nome da função
     String nomeFuncao = funcaoSnapshot.get('nome') ?? '';
 
+    print('NomeFuncao = ${nomeFuncao}');
     // Obtendo a localização atual do usuário
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
+    print('Position = ${position.toString()}');
+
     // Obtendo o endereço correspondente às coordenadas
     List<Placemark> placemarks =
         await placemarkFromCoordinates(position.latitude, position.longitude);
+    
+    print('PLACEMARKS = ${placemarks.toString()}');
 
     String enderecoAtual = placemarks.isNotEmpty
         ? placemarks.first.street ?? 'Endereço não encontrado'
@@ -347,6 +354,13 @@ Future<RegistroDoPonto> getRegistroPontoAtual() async {
     // Obtendo a hora atual do sistema
     String horaAtual =
         DateFormat('HH:mm:ss').format(DateTime.now());
+
+    print('Dados do Colaborador!!!');
+    print('nome = ${nomeColaborador}');
+    print('User = ${cpfColaborador}');
+    print('User = ${enderecoAtual}');
+    print('User = ${horaAtual}');
+    print('User = ${nomeFuncao}');
 
     // Criando e retornando o objeto RegistroDoPonto
     return RegistroDoPonto(

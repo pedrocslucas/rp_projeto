@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../utils/firebase_utils.dart';
 import '../../models/registro_ponto.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -258,7 +259,7 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
   Widget buildMenuButton(String route, IconData icon, String label, int index) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(route);
+        Get.toNamed('/${route}');
         setState(() {
           _currentPageIndex = index;
         });

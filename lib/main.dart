@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rp_projeto/routes.dart';
 import 'package:rp_projeto/src/screens/inicializacao_screen/inicializacao_screen.dart';
 import 'firebase_options.dart';
+import 'src/utils/controllers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,12 +27,12 @@ Future<void> _requestPermissions() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Minha App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routes: Routes.getRoutes(),
+      getPages: Routes.getPages,
       home: TelaInicializacaoWidget(),
     );
   }

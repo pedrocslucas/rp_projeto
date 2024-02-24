@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../utils/firebase_utils.dart';
 
@@ -269,7 +270,7 @@ class _TelaRegistroPontoWidgetState extends State<TelaRegistroPontoWidget> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'TelaAtividades');
+                      Get.toNamed('/TelaAtividades');
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,

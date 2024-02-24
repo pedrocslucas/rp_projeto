@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:rp_projeto/src/utils/controllers.dart';
 import '../../utils/firebase_utils.dart';
 
 class TelaAtividadesWidget extends StatefulWidget {
@@ -101,7 +103,10 @@ class _TelaAtividadesWidgetState extends State<TelaAtividadesWidget> {
                               padding: const EdgeInsets.symmetric(vertical: 8.0),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.of(context).pushNamed('TelaInfoConstrucao', arguments: obra['id']);
+                                  final obraId = obra['id'].toString(); // Obtenha o ID da obra
+                                  Get.put(ObraController()); // Inicialize o ObraController
+                                  Get.find<ObraController>().obraId = obraId; // Defina o ID da obra no controlador
+                                  Get.toNamed('/TelaInfoConstrucao'); // Navegue para a próxima tela
                                 },
                                 style: ElevatedButton.styleFrom(
                                   foregroundColor: Colors.black,
@@ -179,7 +184,7 @@ class _TelaAtividadesWidgetState extends State<TelaAtividadesWidget> {
   Widget buildMenuButton(String route, IconData icon, String label, int index) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(route);
+        Get.toNamed('/${route}');
         setState(() {
           _currentPageIndex = index;
         });

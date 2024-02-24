@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:rp_projeto/src/utils/controllers.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../utils/firebase_utils.dart';
 import '../../models/obra_info.dart';
@@ -26,6 +28,7 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
   @override
   void initState() {
     super.didChangeDependencies();
+    Get.put(ObraController()); // Inicialize o ObraController
     // Inicializando a carregando informações da obra
     // Agendar a chamada para carregarInfoObra após o initState ser concluído
     Future.delayed(Duration.zero, () {
@@ -36,8 +39,7 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
   Future<void> carregarInfoObra() async {
     try {
       // Recebe o ID do documento da obra da tela anterior
-      final String obraId =
-          ModalRoute.of(context)!.settings.arguments as String;
+      final String obraId = Get.find<ObraController>().obraId; // Obtenha o ID da obra
 
       // Carregar informações da obra
       InformacoesObra loadInfoObra = await carregarInformacoesObra(obraId);
@@ -131,7 +133,7 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
               alignment: const AlignmentDirectional(-0.92, -0.87),
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed('TelaAtividades');
+                  Get.toNamed('/TelaAtividades');
                 },
                 icon: const Icon(
                   Icons.arrow_back_rounded,
@@ -320,7 +322,7 @@ class _TelaInfoConstrucaoWidgetState extends State<TelaInfoConstrucaoWidget> {
                         const SizedBox(height: 32),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushNamed('TelaReconhecimentoFacial');
+                            Get.toNamed('/TelaReconhecimentoFacial');
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF236742),

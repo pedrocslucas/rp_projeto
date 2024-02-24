@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class TelaReconhecimentoFalhaWidget extends StatelessWidget {
   const TelaReconhecimentoFalhaWidget({Key? key}) : super(key: key);
@@ -71,7 +72,7 @@ class TelaReconhecimentoFalhaWidget extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, 'TelaReconhecimentoFacial');
+                            Get.toNamed( '/TelaReconhecimentoFacial');
                           },
                           style: ElevatedButton.styleFrom(
                             foregroundColor: Colors.white,
@@ -105,7 +106,7 @@ class TelaReconhecimentoFalhaWidget extends StatelessWidget {
               child: IconButton(
                 icon: const Icon(Icons.close),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('TelaInfoConstrucao');
+                  Get.toNamed('/TelaInfoConstrucao');
                 },
               ),
             ),

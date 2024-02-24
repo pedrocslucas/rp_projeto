@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart'; 
+import 'package:flutter/services.dart';
+import 'package:get/get.dart'; 
 
 class TelaInicializacaoWidget extends StatefulWidget {
   const TelaInicializacaoWidget({Key? key}) : super(key: key);
@@ -19,12 +20,20 @@ class _TelaInicializacaoWidgetState extends State<TelaInicializacaoWidget> {
   void initState() {
     super.initState();
     _model = TelaInicializacaoModel();
+    //_redirectToLogin();
 
     // On page load action.
     SchedulerBinding.instance!.addPostFrameCallback((_) async {
-      Navigator.of(context).pushReplacementNamed('TelaLogin');
+      Get.toNamed('/TelaLogin');
     });
   }
+
+  /*void _redirectToLogin() {
+    // Navegar para a tela de login usando Get
+    Future.delayed(Duration.zero, () {
+      Get.offNamed('TelaLogin'); // Usando Get para navegar para a tela de login
+    });
+  }*/
 
   @override
   void dispose() {

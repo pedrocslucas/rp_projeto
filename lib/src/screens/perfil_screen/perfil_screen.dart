@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../utils/firebase_utils.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -136,7 +137,7 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
               right: screenWidth * 0.02,
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed('TelaSuporte');
+                  Get.toNamed('/TelaSuporte');
                 },
                 icon: const Icon(
                   Icons.support_agent,
@@ -152,7 +153,7 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
               left: screenWidth * 0.02,
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed('TelaNotificacao');
+                  Get.toNamed('/TelaNotificacao');
                 },
                 icon: const Icon(
                   Icons.notifications_sharp,
@@ -346,7 +347,7 @@ class _TelaPerfilWidgetState extends State<TelaPerfilWidget> {
   Widget buildMenuButton(String route, IconData icon, String label, int index) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(route);
+        Get.toNamed('/${route}');
         setState(() {
           _currentPageIndex = index;
         });

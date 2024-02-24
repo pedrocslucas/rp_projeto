@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rp_projeto/src/screens/atividades_screen/atividades_screen.dart';
 import 'package:rp_projeto/src/screens/esqueceu_senha_screen/esqueceu_senha_screen.dart';
 import 'package:rp_projeto/src/screens/falha_reconhecimento_screen/falha_reconhecimento_screen.dart';
@@ -15,25 +16,51 @@ import 'package:rp_projeto/src/screens/sucesso_reconhecimento_screen/sucesso_rec
 import 'package:rp_projeto/src/screens/suporte_screen/suporte_screen.dart';
 
 
-import 'src/utils/firebase_utils.dart';
-
 class Routes {
-  static const String telaLogin = 'TelaLogin'; //
-  static const String telaEsqueceuSenha = 'TelaEsqueceuSenha';//
-  static const String telaAtividades = 'TelaAtividades'; //
-  static const String telaMeusPontos = 'TelaMeusPontos'; //
-  static const String telaPerfil = 'TelaPerfil'; //
-  static const String telaNotificacao = 'TelaNotificacao'; //
-  static const String telaNotificacaoExpandida = 'TelaNotificacaoExpandida'; //
-  static const String telaSuporte= 'TelaSuporte'; //
-  static const String telaInfoConstrucao= 'TelaInfoConstrucao'; //
-  static const String telaReconhecimentoFacial= 'TelaReconhecimentoFacial'; //
-  static const String telaRegistroPonto= "TelaRegistroPonto"; //
-  static const String telaLoadingReconhecimento= "TelaLoadingReconhecimento"; //
-  static const String telaReconhecimentoSucesso= "TelaReconhecimentoSucesso"; //
-  static const String telaReconhecimentoFalha= 'TelaReconhecimentoFalha'; //
+  static const String telaLogin = '/TelaLogin'; //
+  static const String telaEsqueceuSenha = '/TelaEsqueceuSenha';//
+  static const String telaAtividades = '/TelaAtividades'; //
+  static const String telaMeusPontos = '/TelaMeusPontos'; //
+  static const String telaPerfil = '/TelaPerfil'; //
+  static const String telaNotificacao = '/TelaNotificacao'; //
+  static const String telaNotificacaoExpandida = '/TelaNotificacaoExpandida'; //
+  static const String telaSuporte= '/TelaSuporte'; //
+  static const String telaInfoConstrucao= '/TelaInfoConstrucao'; //
+  static const String telaReconhecimentoFacial= '/TelaReconhecimentoFacial'; //
+  static const String telaRegistroPonto= "/TelaRegistroPonto"; //
+  static const String telaLoadingReconhecimento= "/TelaLoadingReconhecimento"; //
+  static const String telaReconhecimentoSucesso= "/TelaReconhecimentoSucesso"; //
+  static const String telaReconhecimentoFalha= '/TelaReconhecimentoFalha'; //
 
-  static Map<String, WidgetBuilder> getRoutes() {
+  static List<GetPage> getPages = [
+    GetPage(name: telaLogin, page: () => TelaLoginWidget()),
+    GetPage(name: telaEsqueceuSenha, page: () => TelaEsqueceuSenhaWidget()),
+    GetPage(name: telaAtividades, page: () => TelaAtividadesWidget()),
+    GetPage(name: telaMeusPontos, page: () => TelaMeusPontosWidget()),
+    GetPage(name: telaPerfil, page: () => TelaPerfilWidget()),
+    GetPage(name: telaNotificacao, page: () => TelaNotificacaoWidget()),
+    GetPage(
+        name: telaNotificacaoExpandida,
+        page: () => TelaNotificacaoExpandidaWidget()),
+    GetPage(name: telaSuporte, page: () => TelaSuporteWidget()),
+    GetPage(name: telaInfoConstrucao, page: () => TelaInfoConstrucaoWidget()),
+    GetPage(
+        name: telaReconhecimentoFacial,
+        page: () => TelaReconhecimentoFacialWidget()),
+    GetPage(name: telaRegistroPonto, page: () => TelaRegistroPontoWidget()),
+    GetPage(
+        name: telaLoadingReconhecimento,
+        page: () => TelaLoadingReconhecimentoWidget()),
+    GetPage(
+        name: telaReconhecimentoSucesso,
+        page: () => TelaReconhecimentoSucessoWidget()),
+    GetPage(
+        name: telaReconhecimentoFalha,
+        page: () => TelaReconhecimentoFalhaWidget()),
+  ];
+
+  
+  /*static Map<String, WidgetBuilder> getRoutes() {
     return {
       telaLogin: (context) => TelaLoginWidget(),
       telaEsqueceuSenha: (context) => TelaEsqueceuSenhaWidget(),
@@ -50,5 +77,5 @@ class Routes {
       telaReconhecimentoSucesso: (context) =>TelaReconhecimentoSucessoWidget(),
       telaReconhecimentoFalha: (context) => TelaReconhecimentoFalhaWidget(),
     };
-  }
+  }*/
 }

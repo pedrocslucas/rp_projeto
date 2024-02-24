@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TelaSuporteWidget extends StatefulWidget {
   const TelaSuporteWidget({Key? key}) : super(key: key);
@@ -60,7 +61,7 @@ class _TelaSuporteWidgetState extends State<TelaSuporteWidget> {
                   alignment: const AlignmentDirectional(-0.92, -0.87),
                   child: IconButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('TelaPerfil');
+                      Get.toNamed('/TelaPerfil');
                     },
                     icon: const Icon(
                       Icons.arrow_back_rounded,

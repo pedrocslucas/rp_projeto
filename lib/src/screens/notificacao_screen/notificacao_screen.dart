@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 
 class TelaNotificacaoWidget extends StatefulWidget {
   const TelaNotificacaoWidget({Key? key}) : super(key: key);
@@ -49,7 +50,7 @@ class _TelaNotificacaoWidgetState extends State<TelaNotificacaoWidget> {
               alignment: const AlignmentDirectional(-0.92, -0.87),
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed('TelaPerfil');
+                 Get.toNamed('TelaPerfil');
                 },
                 icon: const Icon(
                   Icons.arrow_back_rounded,
@@ -117,7 +118,7 @@ class _TelaNotificacaoWidgetState extends State<TelaNotificacaoWidget> {
                                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          Navigator.of(context).pushNamed('TelaNotificacaoExpandida',
+                                          Get.toNamed('/TelaNotificacaoExpandida',
                                           arguments: notification.id);
                                         },
                                         style: ElevatedButton.styleFrom(

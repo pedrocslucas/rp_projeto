@@ -102,7 +102,7 @@ class _TelaSuporteWidgetState extends State<TelaSuporteWidget> {
                       alignment: AlignmentDirectional.center,
                       child: Text(
                         'Mande uma mensagem para nossa \nequipe relatando o seu problema:',
-                        textAlign: TextAlign.justify,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 18,

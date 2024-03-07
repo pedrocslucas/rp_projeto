@@ -217,7 +217,7 @@ class _TelaMeusPontosWidgetState extends State<TelaMeusPontosWidget> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 40,),
+                              const SizedBox(height: 20,),
                             ],
                           ],
                         ),

@@ -35,7 +35,7 @@ class _TelaNotificacaoExpandidaWidgetState extends State<TelaNotificacaoExpandid
               child: const SizedBox(
                 width: double.infinity,
                 child: Text(
-                  'Notificação Expandida',
+                  'Notificação',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Roboto',
